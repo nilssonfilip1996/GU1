@@ -15,3 +15,20 @@ public class Media{
 	//Testing Testing, Do you copy?
 
 }
+
+public String respons(){
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	// yes I do
+	
+}     <-------------måsvinge
+	
+	

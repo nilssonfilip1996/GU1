@@ -3,7 +3,7 @@ package gu1;
 public class RollCall {
 
 	public static void rollCall(){
-		String[] members = {"Silvester", "?", "?", "?", "?"};
+		String[] members = {"Silvester", "Jesper", "?", "?", "?"};
 		for (String member : members){
 			System.out.println(member + " here!");
 		}
@@ -12,4 +12,5 @@ public class RollCall {
 	public static void main(String[] args) {
 		rollCall();
 	}
+	
 }

@@ -13,7 +13,7 @@ public abstract class MediaTest<E> implements List<E> {
 
 	public static void main(String[] args) throws IOException {
 
-		File file = new File("GU1/Media.txt");
+		File file = new File("Media.txt");
 		Scanner s = new Scanner(file);
 		ArrayList<String> list = new ArrayList<String>();
 

@@ -1,4 +1,4 @@
-package gu1;
+package quarantine;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import gu1.Media;
 
 public abstract class MediaTest<E> implements List<E> {
 

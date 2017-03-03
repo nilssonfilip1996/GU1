@@ -1,9 +1,5 @@
 package gu1;
 
-/*
-Klassen Media är abstrakt och måste därför ärvas. Böcker och dvsfilmer
-ska representeras av klasser vilka ärver Media-klassen.
-*/
 public abstract class Media {
 	private String id;
 	private String year;

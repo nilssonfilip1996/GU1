@@ -3,37 +3,22 @@ package gu1;
 import java.util.Arrays;
 
 public class Dvd extends Media{
-	private String[] actor;
+	private String[] actors;
 	
-	public Dvd(String id, String titel, String year, String[] actor) {
+	public Dvd(String id, String titel, String year, String[] actors) {
 		super(id, year, titel);
-		this.actor = actor;
+		this.actors = actors;
 	}
 
 	public String[] getActor() {
-		return actor;
+		return actors;
 	}
 
-	public void setActor(String[] actor) {
-		this.actor = actor;
+	public void setActor(String[] actors) {
+		this.actors = actors;
 	}
 
 	public String toString() {
-		return "Dvd [actor=" + Arrays.toString(actor) + ", toString()=" + super.toString() + "]";
+		return "Dvd [id=" + this.getId() + ", titel=" + this.getTitel() + ", year=" + this.getYear() + ", actors=" + Arrays.toString(actors) + "]";
 	}
-
-	public static void main(String[] args) {
-//		Dvd dvd = new Dvd("", "hej", "", "");
-//		System.out.println(dvd.getYear());
-//		Media media = new Dvd("", "", "", "");
-//		String hej = "hej";
-		
-		//används i GUI kanske
-//		System.out.println(media instanceof Dvd);
-//		System.out.println(media instanceof Book);
-	}
-
-
-
-
 }

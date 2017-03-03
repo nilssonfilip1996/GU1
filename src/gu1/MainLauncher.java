@@ -1,7 +1,6 @@
 package gu1;
 
 import java.io.IOException;
-
 import javax.swing.SwingUtilities;
 
 public class MainLauncher {
@@ -12,10 +11,8 @@ public class MainLauncher {
 				try {
 					Controller controller = new Controller("Media.txt", "Lantagare.txt");
 				} catch (IOException e) {
-				
 					System.out.print(e);
 				}
-
 			}
 		});
 	}

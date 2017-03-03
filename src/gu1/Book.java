@@ -16,20 +16,7 @@ private String author;
 		this.author = author;
 	}
 	
-	
-	
 	public String toString() {
-		return "Book [author=" + author + ", toString()=" + super.toString() + "]";
+		return "Book [id=" + this.getId() + ", author=" + author + ", titel=" + this.getTitel() + ", year=" + this.getYear() + "]";
 	}
-
-	public static void main(String[] args) {
-//		Dvd dvd = new Dvd("", "hej", "", "");
-//		System.out.println(dvd.getYear());
-//		Media media = new Dvd("", "", "", "");
-		
-		//används i GUI kanske
-//		System.out.println(media instanceof Dvd);
-//		System.out.println(media instanceof Book);
-	}
-
 }

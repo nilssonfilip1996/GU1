@@ -1,4 +1,4 @@
-package gu1;
+package quarantine;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

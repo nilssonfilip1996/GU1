@@ -21,6 +21,7 @@ public class User {
 	
 	public void newLoan(Media element){
 		myLoans.addLast(element);
+		element.setBorrowed(true);
 	}
 	
 	public LinkedList<Media> getMyLoans() {

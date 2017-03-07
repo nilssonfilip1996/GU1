@@ -80,19 +80,27 @@ public class GUItest extends JPanel implements ActionListener {
 		profileWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		profileWindow.setLayout(new FlowLayout());
 		
-		profileWindow.add(mediaUserLoan);
 		profileWindow.add(mediaAvailable);
-		fillComboBox(mediaList, mediaUserLoan);
-		fillComboBox(theUser.getMyLoans(), mediaAvailable);
+		profileWindow.add(mediaUserLoan);
+		
+		fillComboBoxLibrary(mediaList, mediaAvailable);
+		fillComboBoxUserLoans(theUser.getMyLoans(), mediaUserLoan);
 	}
 
-	public void fillComboBox(LinkedList<Media> list, JComboBox<String> mediaUserLoan ) {
-		
-		for(int i=0; i<list.size(); i++){
-			
-			mediaUserLoan.addItem(list.get(i).getTitel().toString());
+	public void fillComboBoxLibrary(LinkedList<Media> list, JComboBox<String> mediaLibrary) {
+
+		for (int i = 0; i < list.size(); i++) {
+			if (!(list.get(i).isBorrowed())) {
+				mediaLibrary.addItem(list.get(i).getTitel().toString());
 			}
-			
+		}
+	}
+
+	private void fillComboBoxUserLoans(LinkedList<Media> myLoans, JComboBox<String> mediaAvailable) {
+		for(int i=0; i<myLoans.size(); i++){
+			mediaAvailable.addItem(myLoans.get(i).getTitel().toString());
 		}
 	}
 	
+	
+}

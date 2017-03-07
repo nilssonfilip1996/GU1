@@ -16,10 +16,12 @@ public class User {
 	}
 	
 	public Media returnLoan(int index){
+		myLoans.get(index).setBorrowed(false);
 		return myLoans.remove(index);
 	}
 	
 	public void newLoan(Media element){
+		element.setBorrowed(true);
 		myLoans.addLast(element);
 	}
 	

@@ -7,11 +7,7 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-/**
- * Hashtabellen använder sluten hashing
- * 
- * @author Rolf Axelsson
- **/
+
 public class MediaLibrary<K, V> implements Map<K, V> {
 	private Shelf<K, V>[] table;
 	private int size;
@@ -76,7 +72,17 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		}
 		return res;
 	}
-
+	
+	
+	public boolean returnMedia(K key) {
+		int hashIndex = hashIndex(key);
+		if (containsKey(key) && table[hashIndex].state==Shelf.REMOVED){
+			table[hashIndex].state=Shelf.OCCUPIED;
+			return true;
+		}
+		return false;
+	}
+	
 	public Iterator<K> keys() {
 		ArrayList<K> keys = new ArrayList<K>();
 		for (int i = 0; i < table.length; i++)
@@ -117,8 +123,8 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		}
 		if (table[hashIndex].state == Shelf.OCCUPIED) {
 			V tempValue = table[hashIndex].value;
-			table[hashIndex].key = null;
-			table[hashIndex].value = null;
+//			table[hashIndex].key = null;
+//			table[hashIndex].value = null;
 			table[hashIndex].state = Shelf.REMOVED;
 			size--;
 			return tempValue;
@@ -128,7 +134,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 	}
 
 	public int size() {
-		return size();
+		return size;
 	}
 
 	public boolean isEmpty() {

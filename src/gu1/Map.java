@@ -40,7 +40,7 @@ public interface Map<K,V> {
      * @return the value to which the specified key is mapped, or
      *         {@code null} if this map contains no mapping for the key
      */
-    V get(K key);
+    V checkStatus(K key);
 
     /**
      * Associates the specified value with the specified key in this map

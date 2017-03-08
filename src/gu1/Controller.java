@@ -32,7 +32,7 @@ public class Controller {
 		mediaList.list();
 		mediaList.remove("The office");
 		mediaList.list();
-		System.out.println(mediaList.returnMedia("The office"));
+		mediaList.returnMedia("The office");
 		
 		mediaList.list();
 		

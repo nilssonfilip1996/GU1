@@ -36,7 +36,6 @@ public class Controller {
 		try {
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(userListPath), "ISO-8859-1"));
-
 			String str;
 			String[] values;
 			while ((str = reader.readLine()) != null) {
@@ -55,7 +54,6 @@ public class Controller {
 		try {
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(mediaListPath), "ISO-8859-1"));
-
 			String str;
 			String[] values;
 			while ((str = reader.readLine()) != null) {

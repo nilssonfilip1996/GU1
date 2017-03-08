@@ -14,7 +14,6 @@ public class Controller {
 	public Controller(String mediaListPath, String userListPath) {
 		this.userList = populateUserList(userListPath);
 		this.mediaList = populateMediaList(mediaListPath);
-
 		// make loans and print user
 //		this.userList.get(1).newLoan(this.mediaList.get(1));
 //		this.userList.get(1).newLoan(this.mediaList.get(2));
@@ -49,7 +48,7 @@ public class Controller {
 		BinaryUserTree<String, User> userList = new BinaryUserTree<String, User>();
 		try {
 			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(userListPath), "ISO-8859-1"));
+					new InputStreamReader(new FileInputStream(userListPath), "UTF-8"));
 			String str;
 			String[] values;
 			while ((str = reader.readLine()) != null) {
@@ -67,7 +66,7 @@ public class Controller {
 		MediaLibrary<String,Media> mediaList = new MediaLibrary<String,Media>(currentUser);
 		try {
 			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(mediaListPath), "ISO-8859-1"));
+					new InputStreamReader(new FileInputStream(mediaListPath), "UTF-8"));
 			String str;
 			String[] values;
 			while ((str = reader.readLine()) != null) {
@@ -91,16 +90,21 @@ public class Controller {
 	public void searchTitle() {
 		String[] inputs = (JOptionPane.showInputDialog("Skriv in sökord")).split(",");
 		Iterator<Media> values = mediaList.values();
+		int count=0;
 		while (values.hasNext()){
 			String ref = values.next().getTitel();
 			String[] refs = ref.split(" ");
 			for(int i=0; i<inputs.length; i++){
 				for(int j=0; j<refs.length; j++){
 					if(inputs[i].equals(refs[j])){
-						System.out.println(ref);
+						count++;
 					}
 				}
+				if(count==inputs.length){
+					System.out.println(ref);
+				}
 			}
+			count=0;
 		}
 	}
 

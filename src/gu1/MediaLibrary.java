@@ -13,12 +13,15 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 	private int size;
 	private int threshold;
 	private double loadfactor = 0.7;
+	private User currentUser;
 
-	public MediaLibrary() {
-		this(11);
+	public MediaLibrary(User currentUser) {
+		this(11, currentUser);
+		
 	}
 
-	public MediaLibrary(int size) {
+	public MediaLibrary(int size, User currentUser) {
+		this.currentUser=currentUser;
 		table = (Shelf<K, V>[]) new Shelf[size];
 		threshold = (int) (loadfactor * table.length);
 		for (int i = 0; i < table.length; i++) {
@@ -76,7 +79,13 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 	
 	public boolean returnMedia(K key) {
 		int hashIndex = hashIndex(key);
-		if (containsKey(key) && table[hashIndex].state==Shelf.REMOVED){
+		while ((table[hashIndex].state != Shelf.EMPTY) && (!key.equals(table[hashIndex].key))) {
+			hashIndex++;
+			if (hashIndex == table.length) {
+				hashIndex = 0;
+			}
+		}
+		if (containsKey(key) && table[hashIndex].state==Shelf.BORROWED){
 			table[hashIndex].state=Shelf.OCCUPIED;
 			size++;
 			return true;
@@ -98,7 +107,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 			System.out.println(i + ": key=" + table[i].key + " value=" + table[i].value + " state=" + table[i].state);
 	}
 
-	public V checkStatus(K key) {
+	public V get(K key) {
 
 		int hashIndex = hashIndex(key);
 		while ((table[hashIndex].state != Shelf.EMPTY) && (!key.equals(table[hashIndex].key))) {
@@ -106,12 +115,15 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 			if (hashIndex == table.length)
 				hashIndex = 0;
 		}
-		if (table[hashIndex].state == Shelf.REMOVED) { 
+		if ((table[hashIndex].state == Shelf.OCCUPIED) || (table[hashIndex].state == Shelf.BORROWED) )  {
+			
 			return table[hashIndex].value;
 		}
 
 		return null;
 	}
+	
+	
 
 	public V remove(K key) {
 
@@ -124,9 +136,28 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		}
 		if (table[hashIndex].state == Shelf.OCCUPIED) {
 			V tempValue = table[hashIndex].value;
-//			table[hashIndex].key = null;
-//			table[hashIndex].value = null;
+			table[hashIndex].key = null;
+			table[hashIndex].value = null;
 			table[hashIndex].state = Shelf.REMOVED;
+			size--;
+			return tempValue;
+		}
+
+		return null;
+	}
+	
+	public V borrowMedia(K key) {
+
+		int hashIndex = hashIndex(key);
+		while ((table[hashIndex].state != Shelf.EMPTY) && (!key.equals(table[hashIndex].key))) {
+			hashIndex++;
+			if (hashIndex == table.length) {
+				hashIndex = 0;
+			}
+		}
+		if (table[hashIndex].state == Shelf.OCCUPIED) {
+			V tempValue = table[hashIndex].value;
+			table[hashIndex].state = Shelf.BORROWED;
 			size--;
 			return tempValue;
 		}
@@ -144,7 +175,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 	}
 
 	public boolean containsKey(K key) {
-		return checkStatus(key) != null;
+		return get(key) != null;
 
 	}
 

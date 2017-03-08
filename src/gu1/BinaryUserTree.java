@@ -1,12 +1,8 @@
 package gu1;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-
-import javax.swing.JComboBox.KeySelectionManager;
 
 import collections.*;
 
@@ -243,8 +239,8 @@ public class BinaryUserTree<K, V> implements SearchTree<K, V> {
 			print(node.left);
 		}
 		System.out.println("Key: " + node.key + ", Value: " + node.value);
-		if (node.left != null) {
-			print(node.left);
+		if (node.right != null) {
+			print(node.right);
 		}
 	}
 

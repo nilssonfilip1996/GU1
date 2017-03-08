@@ -1,6 +1,7 @@
 package gu1;
 
 import java.io.*;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -31,16 +32,17 @@ public class Controller {
 //		test = new GUItest(this);
 //		mediaList.list();
 //		mediaList.remove("The office");
-//		mediaList.list();
+		mediaList.list();
 //		mediaList.returnMedia("The office");
 //		
-		mediaList.list();
-		userList.print();
-		System.out.println(userList.size());
-		System.out.println(mediaList.borrowMedia("277877"));
-		mediaList.list();
-		System.out.println(mediaList.returnMedia("277877"));
-		mediaList.list();
+		searchTitle();
+//		mediaList.list();
+//		userList.print();
+//		System.out.println(userList.size());
+//		System.out.println(mediaList.borrowMedia("277877"));
+//		mediaList.list();
+//		System.out.println(mediaList.returnMedia("277877"));
+//		mediaList.list();
 	}
 
 	public BinaryUserTree<String, User> populateUserList(String userListPath) {
@@ -84,6 +86,25 @@ public class Controller {
 			System.out.println(e);
 		}
 		return mediaList;
+	}
+	
+	public void searchTitle() {
+		String searchString = JOptionPane.showInputDialog("mata in sökord");
+		String[] searchStrings = searchString.split(",");
+		Iterator<Media> values = mediaList.values();
+		while (values.hasNext()){
+			String refString = values.next().getTitel();
+			String[] refStrings = refString.split(" ");
+			for(int i=0; i<searchStrings.length; i++){
+				for(int j=0; j<refStrings.length; j++){
+					if(searchStrings[i].equals(refStrings[j])){
+						System.out.println(refString);
+					}
+				}
+			}
+		}
+		
+		
 	}
 
 //	public void checkLogIn(String id) {

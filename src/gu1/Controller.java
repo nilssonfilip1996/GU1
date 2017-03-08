@@ -32,10 +32,10 @@ public class Controller {
 //		test = new GUItest(this);
 //		mediaList.list();
 //		mediaList.remove("The office");
-		mediaList.list();
+//		mediaList.list();
 //		mediaList.returnMedia("The office");
 //		
-		searchTitle();
+//		searchTitle();
 //		mediaList.list();
 //		userList.print();
 //		System.out.println(userList.size());

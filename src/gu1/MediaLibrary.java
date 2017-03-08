@@ -78,6 +78,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		int hashIndex = hashIndex(key);
 		if (containsKey(key) && table[hashIndex].state==Shelf.REMOVED){
 			table[hashIndex].state=Shelf.OCCUPIED;
+			size++;
 			return true;
 		}
 		return false;
@@ -97,7 +98,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 			System.out.println(i + ": key=" + table[i].key + " value=" + table[i].value + " state=" + table[i].state);
 	}
 
-	public V get(K key) {
+	public V checkStatus(K key) {
 
 		int hashIndex = hashIndex(key);
 		while ((table[hashIndex].state != Shelf.EMPTY) && (!key.equals(table[hashIndex].key))) {
@@ -105,7 +106,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 			if (hashIndex == table.length)
 				hashIndex = 0;
 		}
-		if (table[hashIndex].state == Shelf.OCCUPIED) {
+		if (table[hashIndex].state == Shelf.REMOVED) { 
 			return table[hashIndex].value;
 		}
 
@@ -143,7 +144,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 	}
 
 	public boolean containsKey(K key) {
-		return get(key) != null;
+		return checkStatus(key) != null;
 
 	}
 

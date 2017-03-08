@@ -35,7 +35,7 @@ public class Controller {
 //		mediaList.list();
 //		mediaList.returnMedia("The office");
 //		
-//		searchTitle();
+		searchTitle();
 //		mediaList.list();
 //		userList.print();
 //		System.out.println(userList.size());
@@ -89,22 +89,19 @@ public class Controller {
 	}
 	
 	public void searchTitle() {
-		String searchString = JOptionPane.showInputDialog("mata in sökord");
-		String[] searchStrings = searchString.split(",");
+		String[] inputs = (JOptionPane.showInputDialog("Skriv in sökord")).split(",");
 		Iterator<Media> values = mediaList.values();
 		while (values.hasNext()){
-			String refString = values.next().getTitel();
-			String[] refStrings = refString.split(" ");
-			for(int i=0; i<searchStrings.length; i++){
-				for(int j=0; j<refStrings.length; j++){
-					if(searchStrings[i].equals(refStrings[j])){
-						System.out.println(refString);
+			String ref = values.next().getTitel();
+			String[] refs = ref.split(" ");
+			for(int i=0; i<inputs.length; i++){
+				for(int j=0; j<refs.length; j++){
+					if(inputs[i].equals(refs[j])){
+						System.out.println(ref);
 					}
 				}
 			}
 		}
-		
-		
 	}
 
 //	public void checkLogIn(String id) {

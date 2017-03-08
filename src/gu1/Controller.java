@@ -13,7 +13,6 @@ public class Controller {
 	public Controller(String mediaListPath, String userListPath) {
 		this.userList = populateUserList(userListPath);
 		this.mediaList = populateMediaList(mediaListPath);
-		
 
 		// make loans and print user
 		this.userList.get(1).newLoan(this.mediaList.get(1));
@@ -28,7 +27,7 @@ public class Controller {
 		// print medialist
 		for (int i = 0; i < mediaList.size(); i++)
 			System.out.println(mediaList.get(i).toString());
-		
+
 		test = new GUItest(this);
 	}
 
@@ -77,26 +76,23 @@ public class Controller {
 		return mediaList;
 	}
 
-			public void checkLogIn(String id) {
-				boolean found = false;
-				for(int i=0; i<userList.size(); i++){
-					System.out.println(userList.get(i).getId());
-					
-					if(id.equals(userList.get(i).getId())){
-						User theUser = userList.get(i);
-						test.profileScreen(theUser, mediaList);
-						found  =true;
-						break;
-					}
-				}
-				if(found==false){
-					
-					test.showError();
-				}
-				
-			
-		
-		
+	public void checkLogIn(String id) {
+		boolean found = false;
+		for (int i = 0; i < userList.size(); i++) {
+			System.out.println(userList.get(i).getId());
+
+			if (id.equals(userList.get(i).getId())) {
+				User theUser = userList.get(i);
+				test.profileScreen(theUser, mediaList);
+				found = true;
+				break;
+			}
+		}
+		if (found == false) {
+
+			test.showError();
+		}
+
 	}
 
 }

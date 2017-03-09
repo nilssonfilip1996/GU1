@@ -229,71 +229,6 @@ public class BinarySearchTree<K, V> implements SearchTree<K, V> {
 		return lastNode.value;
 	}
 
-	// Uppgift 14
-	public void print() {
-		print(tree);
-	}
-
-	private void print(BSTNode<K, V> node) {
-		if (node.left != null) {
-			print(node.left);
-		}
-		System.out.println("Key: " + node.key + ", Value: " + node.value);
-		if (node.left != null) {
-			print(node.left);
-		}
-	}
-
-	// Uppgift 15
-	public void printPreOrder() {
-		printPreorder(tree);
-	}
-
-	private void printPreorder(BSTNode<K, V> node) {
-		System.out.println("Key: " + node.key + ", Value: " + node.value);
-		if (node.left != null) {
-			printPreorder(node.left);
-		}
-		if (node.right != null) {
-			printPreorder(node.right);
-		}
-	}
-
-	// Uppgift 16
-	public void printPostOrder() {
-		printPostOrder(tree);
-	}
-
-	private void printPostOrder(BSTNode<K, V> node) {
-		if (node.left != null) {
-			printPostOrder(node.left);
-		}
-		if (node.right != null) {
-			printPostOrder(node.right);
-		}
-		System.out.println("Key: " + node.key + ", Value: " + node.value);
-	}
-
-	// Uppgift 17
-	public void printLevelOrder() {
-		printLevelOrder(tree);
-	}
-
-	private void printLevelOrder(BSTNode<K, V> node) {
-		LinkedQueue<BSTNode<K, V>> queue = new LinkedQueue<BSTNode<K, V>>();
-		queue.enqueue(tree);
-		while(!queue.isEmpty()){
-			BSTNode<K, V> temp = queue.dequeue();
-			System.out.println("Key: " + temp.key + ", Value: " + temp.value);
-			if(temp.left!=null){
-				queue.enqueue(temp.left);
-			}
-			if(temp.right!=null){
-				queue.enqueue(temp.right);
-			}
-		}
-	}
-
 	/**
 	 * @return a list instance containing the keys in the tree.
 	 */
@@ -372,35 +307,4 @@ public class BinarySearchTree<K, V> implements SearchTree<K, V> {
 		}
 	}
 
-	public static void main(String[] args) {
-		BinarySearchTree<String, String> tree = new BinarySearchTree<String, String>();
-		tree.put("karta", "map");
-		tree.put("vacker", "beautiful");
-		tree.put("svart", "black");
-		tree.put("lärare", "teacher");
-		tree.put("boll", "ball");
-		tree.put("vit", "white");
-		tree.put("hus", "house");
-		tree.put("vänster", "left");
-		tree.put("höger", "right");
-		System.out.println(tree.first());
-		System.out.println(tree.last());
-		System.out.println();
-		tree.printLevelOrder();
-		//tree.root().showTree();
-		List<String> list = tree.values();
-		Iterator<String> iter = list.iterator();
-		while(iter.hasNext()){
-			System.out.println(iter.next());
-		}
-		// tree.root().showTree();
-		// String res = (String)tree.get("lärare");
-		// System.out.println(res);
-		// System.out.println(tree.get("LÄRARE"));
-		// System.out.println("---------------------");
-		// Iterator<String> elements = tree.iterator();
-		// while(elements.hasNext()) {
-		// System.out.println(elements.next());
-		// }
-	}
 }

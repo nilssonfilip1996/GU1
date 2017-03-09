@@ -100,7 +100,7 @@ public class Controller {
 						count++;
 					}
 				}
-				if(count==inputs.length){
+				if(count==inputs.length){	//Alla angivna sökord har hittats i en titel
 					System.out.println(ref);
 				}
 			}

@@ -6,28 +6,25 @@ public class User {
 	private String id;
 	private String name;
 	private String phoneNr;
-	private LinkedList<Media> myLoans;
+	private LinkedList<Media> loans;
 	
 	public User(String id, String name, String phoneNr) {
 		this.id = id;
 		this.name = name;
 		this.phoneNr = phoneNr;
-		this.myLoans = new LinkedList<Media>();
+		this.loans = new LinkedList<Media>();
 	}
 	
-	public Media returnLoan(int index){
-		myLoans.get(index).setBorrowed(false);
-		return myLoans.remove(index);
+	public Media returnMedia(Media media){
+		return loans.remove(loans.indexOf(media));
 	}
 	
-	public void newLoan(Media element){
-		element.setBorrowed(true);
-		myLoans.addLast(element);
-		element.setBorrowed(true);
+	public void borrowMedia(Media media){
+		loans.add(media);
 	}
 	
-	public LinkedList<Media> getMyLoans() {
-		return myLoans;
+	public LinkedList<Media> loans() {
+		return loans;
 	}
 
 	public String getId() {
@@ -55,7 +52,7 @@ public class User {
 	}
 	
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", phoneNr=" + phoneNr + ", myLoans=" + myLoans.toString() + "]";
+		return "User [id=" + id + ", name=" + name + ", phoneNr=" + phoneNr + ", loans=" + loans.toString() + "]";
 	}
 	
 	public static void main(String[] args) {

@@ -6,40 +6,19 @@ import javax.swing.*;
 
 public class Controller {
 	private MediaLibrary<String,Media> mediaList;
-	private UserDatabase<String, User> userList;
+	private UserDatabase<String,User> userList;
 	private User currentUser;
 
 	public Controller(String mediaListPath, String userListPath) {
 		this.userList = populateUserList(userListPath);
 		this.mediaList = populateMediaList(mediaListPath);
-		// make loans and print user
-//		this.userList.get(1).newLoan(this.mediaList.get(1));
-//		this.userList.get(1).newLoan(this.mediaList.get(2));
-//		this.userList.get(1).newLoan(this.mediaList.get(3));
-//		System.out.println(this.userList.get(1).toString());
 
-		// print userlist
-//		for (int i = 0; i < userList.size(); i++)
-//			System.out.println(userList.get(i).toString());
-
-		// print medialist
-//		for (int i = 0; i < mediaList.size(); i++)
-//			System.out.println(mediaList.get(i).toString());
-
-//		test = new GUItest(this);
-//		mediaList.list();
-//		mediaList.remove("The office");
-//		mediaList.list();
-//		mediaList.returnMedia("The office");
-//		
-		searchTitle();
-//		mediaList.list();
-//		userList.print();
-//		System.out.println(userList.size());
-//		System.out.println(mediaList.borrowMedia("277877"));
-//		mediaList.list();
-//		System.out.println(mediaList.returnMedia("277877"));
-//		mediaList.list();
+		//Login and loan test
+		login(JOptionPane.showInputDialog("Login with ID"));
+		borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
+		userList.print();
+		returnMedia(JOptionPane.showInputDialog("Enter Media ID to return"));
+		userList.print();
 	}
 
 	public UserDatabase<String, User> populateUserList(String userListPath) {
@@ -61,7 +40,7 @@ public class Controller {
 	}
 
 	public MediaLibrary<String,Media> populateMediaList(String mediaListPath) {
-		MediaLibrary<String,Media> mediaList = new MediaLibrary<String,Media>(currentUser);
+		MediaLibrary<String,Media> mediaList = new MediaLibrary<String,Media>();
 		try {
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(mediaListPath), "UTF-8"));
@@ -85,8 +64,8 @@ public class Controller {
 		return mediaList;
 	}
 	
-	public void searchTitle() {
-		String[] inputs = (JOptionPane.showInputDialog("Skriv in sökord")).split(",");
+	public void searchTitle(String input) {
+		String[] inputs = (input.split(","));
 		Iterator<Media> values = mediaList.values();
 		int count=0;
 		while (values.hasNext()){
@@ -99,30 +78,39 @@ public class Controller {
 					}
 				}
 				if(count==inputs.length){	//Alla angivna sökord har hittats i en titel
-					System.out.println(ref);
+					System.out.println(ref); //<- ersätt med sätt att uppdatera GUI
 				}
 			}
 			count=0;
 		}
 	}
 
-//	public void checkLogIn(String id) {
-//		boolean found = false;
-//		for (int i = 0; i < userList.size(); i++) {
-//			System.out.println(userList.get(i).getId());
-//
-//			if (id.equals(userList.get(i).getId())) {
-//				User theUser = userList.get(i);
-//				test.profileScreen(theUser, mediaList);
-//				found = true;
-//				break;
-//			}
-//		}
-//		if (found == false) {
-//
-//			test.showError();
-//		}
-//
-//	}
-
+	public boolean login(String userID) {
+		if (userList.contains(userID)){
+			currentUser = userList.get(userID);
+			return true;
+		} 
+		JOptionPane.showMessageDialog(null,"User not found"); // Flytta till GUI?
+		return false;
+	}
+	
+	public boolean borrowMedia(String mediaID){
+		if (mediaList.contains(mediaID)){
+			mediaList.borrowMedia(mediaID);
+			currentUser.borrowMedia(mediaList.get(mediaID));
+			return true;
+		} 
+		JOptionPane.showMessageDialog(null,"Media not found"); // Flytta till GUI?
+		return false;
+	}
+	
+	public boolean returnMedia(String mediaID){
+		if (currentUser.loans().contains(mediaList.get(mediaID))){
+			mediaList.returnMedia(mediaID);
+			currentUser.returnMedia(mediaList.get(mediaID));
+			return true;
+		}
+		JOptionPane.showMessageDialog(null,"User does not have this Media on loan"); // Flytta till GUI?
+		return false;
+	}
 }

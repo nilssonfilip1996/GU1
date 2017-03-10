@@ -4,20 +4,11 @@ public abstract class Media {
 	private String id;
 	private String year;
 	private String titel;
-	private boolean isBorrowed;
 
 	public Media(String id, String year, String titel) {
 		this.id = id;
 		this.year = year;
 		this.titel = titel;
-	}
-
-	public boolean isBorrowed() {
-		return isBorrowed;
-	}
-
-	public void setBorrowed(boolean isBorrowed) {
-		this.isBorrowed = isBorrowed;
 	}
 
 	public String getYear() {

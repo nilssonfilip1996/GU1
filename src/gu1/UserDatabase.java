@@ -8,7 +8,6 @@ public class UserDatabase<K, V> implements SearchTree<K, V> {
 	private UserNode<K, V> tree;
 	private int size;
 
-
 	public UserDatabase() {
 		comparator = new Comp();
 	}
@@ -114,35 +113,18 @@ public class UserDatabase<K, V> implements SearchTree<K, V> {
 		return 1 + Math.max(height(node.left), height(node.right));
 	}
 
-	public int size1() {
+	public int size() {
+		return size;
+	}
+	
+	public int sizeOfTree() {
 		if (tree != null) {
 			return tree.size();
 		} else {
 			return 0;
 		}
-
 	}
 
-	public int size2() {
-		return size2(tree);
-	}
-
-	public int size2(UserNode<K, V> node) {
-		if (node != null) {
-			return (1 + size2(node.left) + size2(node.right));
-		} else {
-			return 0;
-		}
-	}
-
-	/**
-	 * @return the number of nodes in the tree.
-	 */
-	public int size() {
-		return size;
-	}
-
-	// Uppgift 9
 	public V first() {
 		UserNode<K, V> firstNode = tree;
 		if (firstNode == null) {
@@ -154,7 +136,6 @@ public class UserDatabase<K, V> implements SearchTree<K, V> {
 		return firstNode.value;
 	}
 
-	// Uppgift 10
 	public V last() {
 		UserNode<K, V> lastNode = tree;
 		if (lastNode == null) {
@@ -166,7 +147,6 @@ public class UserDatabase<K, V> implements SearchTree<K, V> {
 		return lastNode.value;
 	}
 
-	// Uppgift 14
 	public void print() {
 		print(tree);
 	}
@@ -181,9 +161,6 @@ public class UserDatabase<K, V> implements SearchTree<K, V> {
 		}
 	}
 
-	/**
-	 * @return a list instance containing the keys in the tree.
-	 */
 	public List<K> keys() {
 		ArrayList<K> list = new ArrayList<K>();
 		keys(tree, list);

@@ -76,6 +76,7 @@ public class Controller {
 		return mediaList;
 	}
 	
+	// denna är nog onödig, JList funkar lite annorlunda än JComboBox verkar det som
 	public String[] populateCurrentUserLoanList(){
 		Iterator<Media> values = currentUser.loans().iterator();
 		String[] loanList = new String[currentUser.loans().size()];

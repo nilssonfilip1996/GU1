@@ -37,7 +37,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.mediaInfoTxt = new JTextArea();
 		mediaInfoTxt.setBackground(Color.ORANGE);
 		availableMedia.setBackground(Color.GREEN);
-		userLoans.setBackground(Color.BLUE);
+		userLoans.setBackground(Color.YELLOW);
 
 		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLbl.setPreferredSize(new Dimension(getWidth(), 40));
@@ -66,7 +66,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	
 	public void addLoan(String media){
 		listModel.addElement(media);
-		//mediaUserLoan.setModel(listModel);
+		userLoans.setModel(listModel);
 	}
 
 	

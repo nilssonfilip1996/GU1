@@ -15,7 +15,6 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	private GuiTest2 mainFrame;
 	private JLabel welcomeLbl;
 	private JTextArea mediaInfoTxt;
-	private JList<String> mediaUserLoan;
 	private JList<String> availableMedia;
 	private JList<String> userLoans;
 	private JButton makeLoanBtn;
@@ -81,7 +80,6 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 				System.out.println(userLoans.getSelectedValue());
 			}
 		}
-
 	}
 
 	@Override

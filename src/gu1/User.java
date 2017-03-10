@@ -54,12 +54,4 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", phoneNr=" + phoneNr + ", loans=" + loans.toString() + "]";
 	}
-	
-	public static void main(String[] args) {
-//		User user = new User("1111", "333", "33");
-//		Media media = new Book("4","44","44", "44");
-//		user.newLoan(media);
-//		user.newLoan(media);
-//		System.out.print(user.myLoans.toString());
-	}
 }

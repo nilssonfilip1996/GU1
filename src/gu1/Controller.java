@@ -70,13 +70,13 @@ public class Controller {
 	}
 	
 	public String[] searchTitle(String input) {
-		String[] inputs = (input.split(","));
+		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
 		Iterator<Media> values = mediaList.values();
 		ArrayList<String> resultlist = new ArrayList<String>();
 		int count=0;
 		while (values.hasNext()){
 			String ref = values.next().getTitel();
-			String[] refs = ref.split(" ");
+			String[] refs = ref.toLowerCase().split("[^a-öA-Ö0-9]+");
 			for(int i=0; i<inputs.length; i++){
 				for(int j=0; j<refs.length; j++){
 					if(inputs[i].equals(refs[j])){
@@ -88,6 +88,9 @@ public class Controller {
 				}
 			}
 			count=0;
+		}
+		if (resultlist.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"No Media found"); // <- Flytta till GUI?
 		}
 		return resultlist.toArray(new String[resultlist.size()]);
 	}

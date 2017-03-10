@@ -35,7 +35,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		}
 	}
 
-	private int hashIndex(K key) {
+	public int hashIndex(K key) {
 		int hashCode = key.hashCode();
 		hashCode = hashCode % table.length;
 		return (hashCode < 0) ? -hashCode : hashCode;

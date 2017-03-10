@@ -18,8 +18,22 @@ public class Controller {
 	public Controller(String mediaListPath, String userListPath) {
 		this.userDatabase = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
-		this.mainWindow = new GuiTest2(this);
-		test = new GUItest(this);
+		//this.mainWindow = new GuiTest2(this);
+		//test = new GUItest(this);
+		
+//		//Login and loan test
+//		login(JOptionPane.showInputDialog("Login with ID"));
+//		borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
+//		userDatabase.print();
+//		mediaLibrary.print();
+//		returnMedia(JOptionPane.showInputDialog("Enter Media ID to return"));
+//		userDatabase.print();
+//		mediaLibrary.print();
+		
+		//SearchTest
+ 		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
+ 			System.out.println(s);
+ 		}
 	}
 
 	public UserDatabase<String, User> populateUserDatabase(String userListPath) {

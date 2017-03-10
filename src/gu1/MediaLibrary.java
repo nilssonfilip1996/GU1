@@ -1,12 +1,7 @@
 package gu1;
 
-import gu1.Map;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import javax.swing.JOptionPane;
-
 
 public class MediaLibrary<K, V> implements Map<K, V> {
 	private Shelf<K, V>[] table;

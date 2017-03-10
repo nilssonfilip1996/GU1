@@ -1,14 +1,12 @@
 package gu1;
 
 import java.io.*;
-import java.util.Iterator;
-
-import javax.swing.JOptionPane;
+import java.util.*;
+import javax.swing.*;
 
 public class Controller {
 	private MediaLibrary<String,Media> mediaList;
-	private BinaryUserTree<String, User> userList;
-	private GUItest test;
+	private UserDatabase<String, User> userList;
 	private User currentUser;
 
 	public Controller(String mediaListPath, String userListPath) {
@@ -44,8 +42,8 @@ public class Controller {
 //		mediaList.list();
 	}
 
-	public BinaryUserTree<String, User> populateUserList(String userListPath) {
-		BinaryUserTree<String, User> userList = new BinaryUserTree<String, User>();
+	public UserDatabase<String, User> populateUserList(String userListPath) {
+		UserDatabase<String, User> userList = new UserDatabase<String, User>();
 		try {
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(userListPath), "UTF-8"));

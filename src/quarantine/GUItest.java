@@ -1,4 +1,4 @@
-package gu1;
+package quarantine;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -18,6 +18,9 @@ import javax.swing.JTextField;
 
 import com.sun.prism.paint.Color;
 
+import gu1.Controller;
+import gu1.Media;
+import gu1.User;
 import sun.applet.Main;
 
 public class GUItest extends JPanel implements ActionListener {

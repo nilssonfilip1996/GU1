@@ -13,12 +13,17 @@ public class Controller {
 		this.userList = populateUserList(userListPath);
 		this.mediaList = populateMediaList(mediaListPath);
 
-		//Login and loan test
-		login(JOptionPane.showInputDialog("Login with ID"));
-		borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
-		userList.print();
-		returnMedia(JOptionPane.showInputDialog("Enter Media ID to return"));
-		userList.print();
+//		//Login and loan test
+//		login(JOptionPane.showInputDialog("Login with ID"));
+//		borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
+//		userList.print();
+//		returnMedia(JOptionPane.showInputDialog("Enter Media ID to return"));
+//		userList.print();
+		
+		//SearchTest
+		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
+			System.out.println(s);
+		}
 	}
 
 	public UserDatabase<String, User> populateUserList(String userListPath) {
@@ -64,9 +69,10 @@ public class Controller {
 		return mediaList;
 	}
 	
-	public void searchTitle(String input) {
+	public String[] searchTitle(String input) {
 		String[] inputs = (input.split(","));
 		Iterator<Media> values = mediaList.values();
+		ArrayList<String> resultlist = new ArrayList<String>();
 		int count=0;
 		while (values.hasNext()){
 			String ref = values.next().getTitel();
@@ -78,11 +84,12 @@ public class Controller {
 					}
 				}
 				if(count==inputs.length){	//Alla angivna sökord har hittats i en titel
-					System.out.println(ref); //<- ersätt med sätt att uppdatera GUI
+					resultlist.add(ref);
 				}
 			}
 			count=0;
 		}
+		return resultlist.toArray(new String[resultlist.size()]);
 	}
 
 	public boolean login(String userID) {

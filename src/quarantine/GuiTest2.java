@@ -39,9 +39,15 @@ public class GuiTest2 extends JFrame {
 		}
 	}
 
-	public void loginToLibraryPanel() {
+	public void loginToLibraryPanel(String name) {
 		logInPanel.setVisible(false);
+		libraryPanel.fillUserName(name);
 		libraryPanel.setVisible(true);
+	}
+	
+	public void updateMediaLists(String[] availableMediaList, String[] userLoanList){
+		libraryPanel.fillAvailableMediaList(availableMediaList);
+		libraryPanel.fillUserLoanList(userLoanList);
 	}
 
 	

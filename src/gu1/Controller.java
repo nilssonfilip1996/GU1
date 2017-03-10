@@ -18,7 +18,7 @@ public class Controller {
 	public Controller(String mediaListPath, String userListPath) {
 		this.userDatabase = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
-		//this.mainWindow = new GuiTest2(this);
+		this.mainWindow = new GuiTest2(this);
 		//test = new GUItest(this);
 		
 //		//Login and loan test
@@ -31,9 +31,9 @@ public class Controller {
 //		mediaLibrary.print();
 		
 		//SearchTest
- 		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
- 			System.out.println(s);
- 		}
+// 		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
+// 			System.out.println(s);
+// 		}
 	}
 
 	public UserDatabase<String, User> populateUserDatabase(String userListPath) {
@@ -131,12 +131,18 @@ public class Controller {
 	public boolean login(String userID) {
 		if (userDatabase.contains(userID)){
 			currentUser = userDatabase.get(userID);
+			loginToLibraryPanel();							//Ta bort denna rad om ni använder GUITest som GUI
 			return true;
 		} 
 		JOptionPane.showMessageDialog(null,"User not found"); // Flytta till GUI?
 		return false;
 	}
 	
+	private void loginToLibraryPanel() {
+		mainWindow.loginToLibraryPanel(currentUser.getName());
+		mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
+	}
+
 	public boolean borrowMedia(String mediaID){
 		if (mediaLibrary.contains(mediaID)){
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));

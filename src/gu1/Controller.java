@@ -4,32 +4,25 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
+import quarantine.GUItest;
 import quarantine.GuiTest2;
 
 public class Controller {
-	private MediaLibrary<String,Media> mediaList;
-	private UserDatabase<String,User> userList;
+	private MediaLibrary<String,Media> mediaLibrary;
+	private UserDatabase<String,User> userDatabase;
 	private User currentUser;
+	private GUItest test;
 	private GuiTest2 mainWindow;
 
+
 	public Controller(String mediaListPath, String userListPath) {
-		this.userList = populateUserList(userListPath);
-		this.mediaList = populateMediaList(mediaListPath);
+		this.userDatabase = populateUserDatabase(userListPath);
+		this.mediaLibrary = populateMediaLibrary(mediaListPath);
 		this.mainWindow = new GuiTest2(this);
-//		//Login and loan test
-//		login(JOptionPane.showInputDialog("Login with ID"));
-//		borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
-//		userList.print();
-//		returnMedia(JOptionPane.showInputDialog("Enter Media ID to return"));
-//		userList.print();
-		
-		//SearchTest
-//		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
-//			System.out.println(s);
-//		}
+		test = new GUItest(this);
 	}
 
-	public UserDatabase<String, User> populateUserList(String userListPath) {
+	public UserDatabase<String, User> populateUserDatabase(String userListPath) {
 		UserDatabase<String, User> userList = new UserDatabase<String, User>();
 		try {
 			BufferedReader reader = new BufferedReader(
@@ -47,7 +40,7 @@ public class Controller {
 		return userList;
 	}
 
-	public MediaLibrary<String,Media> populateMediaList(String mediaListPath) {
+	public MediaLibrary<String,Media> populateMediaLibrary(String mediaListPath) {
 		MediaLibrary<String,Media> mediaList = new MediaLibrary<String,Media>();
 		try {
 			BufferedReader reader = new BufferedReader(
@@ -72,9 +65,31 @@ public class Controller {
 		return mediaList;
 	}
 	
+	public String[] populateAvailableMediaList(){
+		Iterator<Media> values = mediaLibrary.values();
+		String[] mediaList = new String[mediaLibrary.size()];
+		int index = 0;
+		while (values.hasNext()){
+			mediaList[index] = values.next().getTitel();
+			index++;
+		}
+		return mediaList;
+	}
+	
+	public String[] populateCurrentUserLoanList(){
+		Iterator<Media> values = currentUser.loans().iterator();
+		String[] loanList = new String[currentUser.loans().size()];
+		int index = 0;
+		while (values.hasNext()){
+			loanList[index] = values.next().getTitel();
+			index++;
+		}
+		return loanList;
+	}
+	
 	public String[] searchTitle(String input) {
 		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
-		Iterator<Media> values = mediaList.values();
+		Iterator<Media> values = mediaLibrary.values();
 		ArrayList<String> resultlist = new ArrayList<String>();
 		int count=0;
 		while (values.hasNext()){
@@ -93,14 +108,14 @@ public class Controller {
 			count=0;
 		}
 		if (resultlist.isEmpty()) {
-			JOptionPane.showMessageDialog(null,"No Media found"); // <- Flytta till GUI?
+			JOptionPane.showMessageDialog(null,"No results for keyword(s): " + input); // <- Flytta till GUI?
 		}
 		return resultlist.toArray(new String[resultlist.size()]);
 	}
 
 	public boolean login(String userID) {
-		if (userList.contains(userID)){
-			currentUser = userList.get(userID);
+		if (userDatabase.contains(userID)){
+			currentUser = userDatabase.get(userID);
 			return true;
 		} 
 		JOptionPane.showMessageDialog(null,"User not found"); // Flytta till GUI?
@@ -108,9 +123,9 @@ public class Controller {
 	}
 	
 	public boolean borrowMedia(String mediaID){
-		if (mediaList.contains(mediaID)){
-			mediaList.borrowMedia(mediaID);
-			currentUser.borrowMedia(mediaList.get(mediaID));
+		if (mediaLibrary.contains(mediaID)){
+			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
+			test.addLoan(mediaLibrary.get(mediaID).getTitel()); //<------- testing borrow!
 			return true;
 		} 
 		JOptionPane.showMessageDialog(null,"Media not found"); // Flytta till GUI?
@@ -118,12 +133,11 @@ public class Controller {
 	}
 	
 	public boolean returnMedia(String mediaID){
-		if (currentUser.loans().contains(mediaList.get(mediaID))){
-			mediaList.returnMedia(mediaID);
-			currentUser.returnMedia(mediaList.get(mediaID));
+		if (currentUser.loans().contains(mediaLibrary.get(mediaID))){
+			currentUser.returnMedia(mediaLibrary.returnMedia(mediaID));
 			return true;
 		}
-		JOptionPane.showMessageDialog(null,"User does not have this Media on loan"); // Flytta till GUI?
+		JOptionPane.showMessageDialog(null,"Loan not found for this User"); // Flytta till GUI?
 		return false;
 	}
 }

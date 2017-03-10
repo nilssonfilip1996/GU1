@@ -1,31 +1,14 @@
 package quarantine;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.LinkedList;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import com.sun.prism.paint.Color;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 import gu1.Controller;
-import gu1.Media;
-import gu1.User;
-import sun.applet.Main;
 
 public class GUItest extends JPanel implements ActionListener {
 
-	private Controller controller;
+	private Controller c;
 	private JFrame mainWindow;
 	private JFrame profileWindow;
 	private JPanel south = new JPanel(new BorderLayout());
@@ -34,15 +17,15 @@ public class GUItest extends JPanel implements ActionListener {
 	private JButton logInBtn = new JButton("OK");
 	private JLabel logInHead = new JLabel("Logga in");
 	private JPanel logInPanel = new JPanel(new GridLayout(1, 3));
-	private JComboBox<String> mediaUserLoan = new JComboBox<String>();
-	private JComboBox<String> mediaAvailable = new JComboBox<String>();
+	private JList<String> mediaUserLoan;
+	private JList<String> mediaAvailable;
 
 	public GUItest(Controller controller) {
-		this.controller = controller;
-
+		this.c = controller;
+		
 		mainWindow = new JFrame("Log-in screen");
 
-		mainWindow.setSize(1200, 700);
+		mainWindow.setSize(700, 700);
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLayout(new FlowLayout());
@@ -56,54 +39,39 @@ public class GUItest extends JPanel implements ActionListener {
 		logInPanel.add(logInId, BorderLayout.CENTER);
 		logInPanel.add(logInBtn);
 		logInBtn.addActionListener(this);
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == logInBtn) {
-			controller.checkLogIn(logInId.getText());
-			// System.out.println(logInId.getText());
-
-		}
-
-	}
-
-	public void showError() {
-
-		JOptionPane.showMessageDialog(null, "Du har inte behörighet");
-
-	}
-
-	public void profileScreen(User theUser, LinkedList<Media> mediaList) {
-		mainWindow.dispose();
-
-		profileWindow = new JFrame("Profil");
-		profileWindow.setSize(1200, 700);
-		profileWindow.setVisible(true);
-		profileWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		profileWindow.setLayout(new FlowLayout());
-		
-		profileWindow.add(mediaAvailable);
-		profileWindow.add(mediaUserLoan);
-		
-		fillComboBoxLibrary(mediaList, mediaAvailable);
-		fillComboBoxUserLoans(theUser.getMyLoans(), mediaUserLoan);
-	}
-
-	public void fillComboBoxLibrary(LinkedList<Media> list, JComboBox<String> mediaLibrary) {
-
-		for (int i = 0; i < list.size(); i++) {
-			if (!(list.get(i).isBorrowed())) {
-				mediaLibrary.addItem(list.get(i).getTitel().toString());
+			if(c.login(logInId.getText())){
+				profileScreen();
+			} else {
+				logInId.setText("");
 			}
 		}
 	}
 
-	private void fillComboBoxUserLoans(LinkedList<Media> myLoans, JComboBox<String> mediaAvailable) {
-		for(int i=0; i<myLoans.size(); i++){
-			mediaAvailable.addItem(myLoans.get(i).getTitel().toString());
-		}
+	public void addLoan(String media){
+		DefaultListModel listModel = new DefaultListModel();
+		listModel.addElement(media);
+		mediaUserLoan.setModel(listModel);
 	}
 	
-	
+	public void profileScreen() {
+		mainWindow.dispose();
+
+		profileWindow = new JFrame("Profil");
+		profileWindow.setSize(700, 700);
+		profileWindow.setVisible(true);
+		profileWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		profileWindow.setLayout(new FlowLayout());
+		
+		mediaAvailable = new JList<String>(c.populateAvailableMediaList());
+		mediaUserLoan = new JList<String>();
+		
+		profileWindow.add(mediaAvailable);
+		profileWindow.add(mediaUserLoan);
+		
+		c.borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow")); //<--- testing borrow
+	}
 }

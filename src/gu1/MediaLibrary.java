@@ -68,7 +68,8 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		return res;
 	}
 	
-	public boolean returnMedia(K key) {
+	public V returnMedia(K key) {
+		V res = null;
 		int hashIndex = hashIndex(key);
 		while ((table[hashIndex].state != Shelf.EMPTY) && (!key.equals(table[hashIndex].key))) {
 			hashIndex++;
@@ -78,10 +79,10 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		}
 		if (contains(key) && table[hashIndex].state==Shelf.BORROWED){
 			table[hashIndex].state=Shelf.OCCUPIED;
-			size++;
-			return true;
+			//size++;
+			return table[hashIndex].value;
 		}
-		return false;
+		return res;
 	}
 
 	public void print() {
@@ -133,7 +134,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 		if (table[hashIndex].state == Shelf.OCCUPIED) {
 			V tempValue = table[hashIndex].value;
 			table[hashIndex].state = Shelf.BORROWED;
-			size--;
+			//size--;
 			return tempValue;
 		}
 		return null;
@@ -173,7 +174,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 
 		public KeyIterator() {
 			for (int i = 0; i < table.length; i++)
-				if (table[i].state == Shelf.OCCUPIED /* || table[i].state == Shelf.BORROWED kanske behövs sen */)
+				if (table[i].state == Shelf.OCCUPIED || table[i].state == Shelf.BORROWED)
 					keys.add(table[i].key);
 		}
 
@@ -200,7 +201,7 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 
 		public ValueIterator() {
 			for (int i = 0; i < table.length; i++)
-				if (table[i].state == Shelf.OCCUPIED /* || table[i].state == Shelf.BORROWED kanske behövs sen */)
+				if (table[i].state == Shelf.OCCUPIED  || table[i].state == Shelf.BORROWED)
 					values.add(table[i].value);
 		}
 

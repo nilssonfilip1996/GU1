@@ -7,51 +7,54 @@ import javax.swing.*;
 
 import gu1.*;
 
-public class GuiTest2 extends JFrame{
+public class GuiTest2 extends JFrame {
 	private Controller controller;
 	private LogInPanel logInPanel;
-	private JPanel userPanel;
-	
-	public GuiTest2(Controller controller){
+	private LibraryPanel libraryPanel;
+
+	public GuiTest2(Controller controller) {
 		this.controller = controller;
 		setSize(1200, 700);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new GridBagLayout());
+		setLayout(new CardLayout());
 		drawLoginPanel();
+		drawLibraryPanel();
 	}
-	
-	
-	
-
 
 	private void drawLoginPanel() {
 		logInPanel = new LogInPanel(this);
 		add(logInPanel);
 	}
 
-	public void logInPressed(String idEntered){
-		
+	private void drawLibraryPanel() {
+		libraryPanel = new LibraryPanel(this);
+		add(libraryPanel);
+		libraryPanel.setVisible(false);
 	}
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	private class ButtonListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			
+	public void logInPressed(String idEntered) {
+		if (controller.login(idEntered)) {
+			JOptionPane.showMessageDialog(null, "Success!");
 		}
-
 	}
+
+	public void loginToLibraryPanel() {
+		logInPanel.setVisible(false);
+		libraryPanel.setVisible(true);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
 }
-
-

@@ -4,16 +4,28 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
+import quarantine.GuiTest2;
+
 public class Controller {
 	private MediaLibrary<String,Media> mediaLibrary;
 	private UserDatabase<String,User> userDatabase;
 	private User currentUser;
+<<<<<<< HEAD
 	private GUItest test;
+=======
+	private GuiTest2 mainWindow;
+>>>>>>> branch 'master' of https://github.com/nilssonfilip1996/GU1.git
 
 	public Controller(String mediaListPath, String userListPath) {
+<<<<<<< HEAD
 		this.userDatabase = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
 
+=======
+		this.userList = populateUserList(userListPath);
+		this.mediaList = populateMediaList(mediaListPath);
+		this.mainWindow = new GuiTest2(this);
+>>>>>>> branch 'master' of https://github.com/nilssonfilip1996/GU1.git
 //		//Login and loan test
 //		login(JOptionPane.showInputDialog("Login with ID"));
 //		borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
@@ -23,6 +35,7 @@ public class Controller {
 //		userDatabase.print();
 //		mediaLibrary.print();
 		
+<<<<<<< HEAD
 //		//SearchTest
 //		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
 //			System.out.println(s);
@@ -32,6 +45,12 @@ public class Controller {
 //			System.out.println(s);
 //		}
 		test = new GUItest(this);
+=======
+		//SearchTest
+//		for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
+//			System.out.println(s);
+//		}
+>>>>>>> branch 'master' of https://github.com/nilssonfilip1996/GU1.git
 	}
 
 	public UserDatabase<String, User> populateUserDatabase(String userListPath) {

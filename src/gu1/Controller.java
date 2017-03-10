@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
+import quarantine.GUItest;
 import quarantine.GuiTest2;
 
 public class Controller {

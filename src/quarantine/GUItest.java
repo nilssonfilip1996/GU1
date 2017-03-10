@@ -1,8 +1,10 @@
-package gu1;
+package quarantine;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import gu1.Controller;
 
 public class GUItest extends JPanel implements ActionListener {
 

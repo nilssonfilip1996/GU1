@@ -57,14 +57,19 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	public void fillAvailableMediaList(Media[] availableMedia) {
 		String[] availableMediaArr = new String[availableMedia.length];
 		for(int i=0; i<availableMediaArr.length; i++){
-			availableMediaArr[i] = availableMedia[i].getTitel();
+			availableMediaArr[i] = availableMedia[i].getId() + ", " +availableMedia[i].getTitel();		//Nödlösning, visar upp mediats id tillsamans med titeln för att sedan kunna hämta mediats id.
 		}
-		this.availableMedia.setListData(availableMediaArr);
 
+		this.availableMedia.setListData(availableMediaArr);
 	}
 
 	public void fillUserLoanList(Media[] userLoans) {
-		//this.userLoans.setListData(userLoans);
+		String[] userLoanArr = new String[userLoans.length];
+		for(int i=0; i<userLoanArr.length; i++){
+			userLoanArr[i] = userLoans[i].getTitel();
+		}
+
+		this.userLoans.setListData(userLoanArr);
 	}
 	
 	public void addLoan(String media){
@@ -90,7 +95,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==makeLoanBtn){
 			System.out.println(availableMedia.getSelectedValue());
-			addLoan(availableMedia.getSelectedValue());
+			addLoan(availableMedia.getSelectedValue());				//just test
+			String key = availableMedia.getSelectedValue().substring(0, 6);				//urskilja nyckeln till media.
+			System.out.println(key);
 			
 		}
 		

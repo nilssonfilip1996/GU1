@@ -90,7 +90,7 @@ public class Controller {
 	}
 
 	public Media[] populateAvailableMediaList2(){
-		Iterator<Media> values = mediaLibrary.values();
+		Iterator<Media> values = mediaLibrary.availableMedia();
 		Media[] mediaList = new Media[mediaLibrary.size()];
 		int index=0;
 		while(values.hasNext()){
@@ -174,9 +174,10 @@ public class Controller {
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
-			test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
-																// testing
-																// borrow!
+			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
+//			test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
+//																// testing
+//																// borrow!
 			return true;
 		}
 		JOptionPane.showMessageDialog(null, "Media not found"); // Flytta till

@@ -217,4 +217,31 @@ public class MediaLibrary<K, V> implements Map<K, V> {
 			throw new UnsupportedOperationException();
 		}
 	}
+	
+	public Iterator<V> availableMedia() {
+		return new availableMediaIterator();
+	}
+	
+	private class availableMediaIterator implements Iterator<V> {
+		private ArrayList<V> values = new ArrayList<V>();
+		private int listIndex = 0;
+
+		public availableMediaIterator() {
+			for (int i = 0; i < table.length; i++)
+				if (table[i].state == Shelf.OCCUPIED)
+					values.add(table[i].value);
+		}
+
+		public boolean hasNext() {
+			return listIndex < values.size();
+		}
+
+		public V next() {
+			return values.get(listIndex++);
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	}
 }

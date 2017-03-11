@@ -174,7 +174,7 @@ public class Controller {
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
-			System.err.println(("User: " + currentUser.getName() + " has " +currentUser.loans().size() + " loans"));
+			System.err.println(("User: " + currentUser.getName() + " has " +currentUser.loans().size() + " loans"));	//test för att se antal lånade ex.
 			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
 //			test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
 //																// testing

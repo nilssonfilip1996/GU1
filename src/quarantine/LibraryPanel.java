@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import gu1.Controller;
+import gu1.Dvd;
 import gu1.Media;
 
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener {
@@ -34,12 +35,14 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.welcomeLbl = new JLabel();
 		this.makeLoanBtn = new JButton("Make Loan");
 		this.mediaInfoTxt = new JTextArea();
+		this.mediaInfoTxt.setEditable(false);
 		mediaInfoTxt.setBackground(Color.ORANGE);
 		availableMedia.setBackground(Color.GREEN);
 		userLoans.setBackground(Color.YELLOW);
 
 		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLbl.setPreferredSize(new Dimension(getWidth(), 40));
+		makeLoanBtn.setPreferredSize(new Dimension(getWidth(), 60));
 		add(welcomeLbl, BorderLayout.NORTH);
 		add(mediaInfoTxt, BorderLayout.CENTER);
 		add(makeLoanBtn, BorderLayout.SOUTH);
@@ -79,6 +82,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		userLoans.setModel(listModel);
 	}
 
+	public void showMediaInfo(String mediaInfo) {
+			mediaInfoTxt.setText(mediaInfo);
+	}
 	
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
@@ -100,9 +106,4 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 			controller.borrowMedia(key);
 		}
 	}
-
-	public void showMediaInfo(String mediaInfo) {
-		mediaInfoTxt.setText(mediaInfo);
-	}
-
 }

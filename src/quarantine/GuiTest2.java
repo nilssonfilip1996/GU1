@@ -50,6 +50,11 @@ public class GuiTest2 extends JFrame {
 		libraryPanel.fillUserLoanList(userLoanList);
 	}
 
+	public void updateMediaInfoField(String mediaInfo) {
+		libraryPanel.showMediaInfo(mediaInfo);
+		
+	}
+
 	
 	
 	

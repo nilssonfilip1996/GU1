@@ -84,6 +84,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		if (e.getValueIsAdjusting()) {
 			if (e.getSource() == availableMedia) {
 				System.out.println(availableMedia.getSelectedValue());
+				controller.showMediaInfo(availableMedia.getSelectedValue().substring(0, 6));
 				
 			}
 			else if(e.getSource()==userLoans){
@@ -101,6 +102,11 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 			System.out.println(key);
 			
 		}
+		
+	}
+
+	public void showMediaInfo(String mediaInfo) {
+		mediaInfoTxt.setText(mediaInfo);
 		
 	}
 

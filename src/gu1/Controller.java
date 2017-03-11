@@ -196,5 +196,10 @@ public class Controller {
 		return false;
 	}
 
+	public void showMediaInfo(String key) {
+		Media theMedia = mediaLibrary.get(key);
+		mainWindow.updateMediaInfoField(theMedia.toString());
+	}
+
 
 }

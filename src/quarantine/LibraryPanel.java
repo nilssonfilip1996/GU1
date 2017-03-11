@@ -31,7 +31,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		setLayout(new BorderLayout());
 		this.availableMedia = new JList<String>();
 		this.userLoans = new JList<String>();
-		this.welcomeLbl = new JLabel("hello");
+		this.welcomeLbl = new JLabel();
 		this.makeLoanBtn = new JButton("Make Loan");
 		this.mediaInfoTxt = new JTextArea();
 		mediaInfoTxt.setBackground(Color.ORANGE);
@@ -56,22 +56,22 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	}
 
 	public void fillAvailableMediaList(Media[] availableMedia) {
-		String[] availableMediaArr = new String[availableMedia.length];
-		for(int i=0; i<availableMediaArr.length; i++){
+		DefaultListModel<String> availableMediaListModel = new DefaultListModel<String>();
+		for(int i=0; i<availableMedia.length; i++){
 			if(availableMedia[i]!=null){
-			availableMediaArr[i] = availableMedia[i].getId() + ", " +availableMedia[i].getTitel();		//Nödlösning, visar upp mediats id tillsamans med titeln för att sedan kunna hämta mediats id.
+				availableMediaListModel.addElement(availableMedia[i].getId() + ", " +availableMedia[i].getTitel());		//Nödlösning, visar upp mediats id tillsamans med titeln för att sedan kunna hämta mediats id.		
 			}
 		}
-		this.availableMedia.setListData(availableMediaArr);
+		this.availableMedia.setModel(availableMediaListModel);
 	}
 
 	public void fillUserLoanList(Media[] userLoans) {
-		String[] userLoanArr = new String[userLoans.length];
-		for(int i=0; i<userLoanArr.length; i++){
-			userLoanArr[i] = userLoans[i].getTitel();
+		DefaultListModel<String> userLoanListModel = new DefaultListModel<String>();
+		for(int i=0; i<userLoans.length; i++){
+			userLoanListModel.addElement(userLoans[i].getId() + ", " +userLoans[i].getTitel());
 		}
 
-		this.userLoans.setListData(userLoanArr);
+		this.userLoans.setModel(userLoanListModel);
 	}
 	
 	public void addLoan(String media){
@@ -86,7 +86,6 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 			if (e.getSource() == availableMedia) {
 				System.out.println(availableMedia.getSelectedValue());
 				controller.showMediaInfo(availableMedia.getSelectedValue().substring(0, 6));
-				
 			}
 			else if(e.getSource()==userLoans){
 				System.out.println(userLoans.getSelectedValue());
@@ -97,18 +96,13 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==makeLoanBtn && !availableMedia.isSelectionEmpty()){
-			//System.out.println(availableMedia.getSelectedValue());
 			String key = availableMedia.getSelectedValue().substring(0, 6);				//urskilja nyckeln till media.
 			controller.borrowMedia(key);
-			//System.out.println(key);
-			
 		}
-		
 	}
 
 	public void showMediaInfo(String mediaInfo) {
 		mediaInfoTxt.setText(mediaInfo);
-		
 	}
 
 }

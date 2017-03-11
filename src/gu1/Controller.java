@@ -176,7 +176,7 @@ public class Controller {
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
 			System.err.println(("User: " + currentUser.getName() + " has " +currentUser.loans().size() + " loans"));	//test för att se antal lånade ex.
 			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
-//			test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
+//			test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------			
 //																// testing
 //																// borrow!
 			return true;

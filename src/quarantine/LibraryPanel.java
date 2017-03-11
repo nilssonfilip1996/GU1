@@ -54,13 +54,17 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		welcomeLbl.setText("Welcome: " + name);
 	}
 
-	public void fillAvailableMediaList(String[] availableMedia) {
-		this.availableMedia.setListData(availableMedia);
+	public void fillAvailableMediaList(Media[] availableMedia) {
+		String[] availableMediaArr = new String[availableMedia.length];
+		for(int i=0; i<availableMediaArr.length; i++){
+			availableMediaArr[i] = availableMedia[i].getTitel();
+		}
+		this.availableMedia.setListData(availableMediaArr);
 
 	}
 
-	public void fillUserLoanList(String[] userLoans) {
-		this.userLoans.setListData(userLoans);
+	public void fillUserLoanList(Media[] userLoans) {
+		//this.userLoans.setListData(userLoans);
 	}
 	
 	public void addLoan(String media){

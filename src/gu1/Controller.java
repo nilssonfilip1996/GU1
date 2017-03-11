@@ -89,6 +89,17 @@ public class Controller {
 		return mediaList;
 	}
 
+	public Media[] populateAvailableMediaList2(){
+		Iterator<Media> values = mediaLibrary.values();
+		Media[] mediaList = new Media[mediaLibrary.size()];
+		int index=0;
+		while(values.hasNext()){
+			mediaList[index] = values.next();
+			index++;
+		}
+		return mediaList;
+		
+	}
 	// denna är nog onödig, JList funkar lite annorlunda än JComboBox verkar det
 	// som
 	public String[] populateCurrentUserLoanList() {
@@ -97,6 +108,17 @@ public class Controller {
 		int index = 0;
 		while (values.hasNext()) {
 			loanList[index] = values.next().getTitel();
+			index++;
+		}
+		return loanList;
+	}
+	
+	public Media[] populateCurrentUserLoanList2(){				
+		Iterator<Media> values = currentUser.loans().iterator();
+		Media[] loanList = new Media[currentUser.loans().size()];
+		int index=0;
+		while(values.hasNext()){
+			loanList[index] = values.next();
 			index++;
 		}
 		return loanList;
@@ -146,7 +168,7 @@ public class Controller {
 
 	private void loginToLibraryPanel() {
 		mainWindow.loginToLibraryPanel(currentUser.getName());
-		mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
+		mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
 	}
 
 	public boolean borrowMedia(String mediaID) {

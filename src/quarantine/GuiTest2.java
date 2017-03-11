@@ -45,7 +45,7 @@ public class GuiTest2 extends JFrame {
 		libraryPanel.setVisible(true);
 	}
 	
-	public void updateMediaLists(String[] availableMediaList, String[] userLoanList){
+	public void updateMediaLists(Media[] availableMediaList, Media[] userLoanList){
 		libraryPanel.fillAvailableMediaList(availableMediaList);
 		libraryPanel.fillUserLoanList(userLoanList);
 	}

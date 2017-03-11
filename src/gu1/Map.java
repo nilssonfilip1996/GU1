@@ -30,7 +30,7 @@ public interface Map<K,V> {
      * @param key key whose presence in this map is to be tested
      * @return <tt>true</tt> if this map contains a mapping for the specified key
      */
-    boolean containsKey(K key);
+    boolean contains(K key);
 
     /**
      * Returns the value to which the specified key is mapped,

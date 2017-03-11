@@ -1,4 +1,4 @@
-package gu1;
+package quarantine;
 
 public class Library {
 	

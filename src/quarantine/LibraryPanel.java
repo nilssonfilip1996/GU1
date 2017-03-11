@@ -47,6 +47,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		add(userLoans, BorderLayout.EAST);
 
 		makeLoanBtn.addActionListener(this);
+		userLoans.addListSelectionListener(this);
 		availableMedia.addListSelectionListener(this);
 	}
 
@@ -96,10 +97,10 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==makeLoanBtn && !availableMedia.isSelectionEmpty()){
-			System.out.println(availableMedia.getSelectedValue());
+			//System.out.println(availableMedia.getSelectedValue());
 			String key = availableMedia.getSelectedValue().substring(0, 6);				//urskilja nyckeln till media.
 			controller.borrowMedia(key);
-			System.out.println(key);
+			//System.out.println(key);
 			
 		}
 		

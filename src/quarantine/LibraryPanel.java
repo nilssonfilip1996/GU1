@@ -3,17 +3,17 @@ package quarantine;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.*;
 import javax.swing.event.*;
-
 import gu1.Controller;
-import gu1.Dvd;
 import gu1.Media;
 
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener {
 	private GuiTest2 mainFrame;
+	private JPanel librarySide;
+	private JPanel userSide;
+	private JLabel librarySideLbl;
+	private JLabel userSideLbl;
 	private JLabel welcomeLbl;
 	private JTextArea mediaInfoTxt;
 	private JList<String> availableMedia;
@@ -30,8 +30,22 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 
 	private void drawLibraryPanel() {
 		setLayout(new BorderLayout());
+		this.librarySide = new JPanel();
+		this.librarySide.setLayout(new BorderLayout());
+		this.userSide = new JPanel();
+		this.userSide.setLayout(new BorderLayout());
+		this.librarySideLbl = new JLabel("Available Media:");
+		librarySideLbl.setBackground(Color.CYAN);
+		librarySideLbl.setOpaque(true);
+		this.userSideLbl = new JLabel("User loans:");
+		userSideLbl.setBackground(Color.MAGENTA);
+		userSideLbl.setOpaque(true);;
 		this.availableMedia = new JList<String>();
 		this.userLoans = new JList<String>();
+		librarySide.add(librarySideLbl, BorderLayout.NORTH);
+		librarySide.add(availableMedia, BorderLayout.CENTER);
+		userSide.add(userSideLbl, BorderLayout.NORTH);
+		userSide.add(userLoans, BorderLayout.CENTER);
 		this.welcomeLbl = new JLabel();
 		this.makeLoanBtn = new JButton("Make Loan");
 		this.mediaInfoTxt = new JTextArea();
@@ -46,8 +60,8 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		add(welcomeLbl, BorderLayout.NORTH);
 		add(mediaInfoTxt, BorderLayout.CENTER);
 		add(makeLoanBtn, BorderLayout.SOUTH);
-		add(availableMedia, BorderLayout.WEST);
-		add(userLoans, BorderLayout.EAST);
+		add(librarySide, BorderLayout.WEST);
+		add(userSide, BorderLayout.EAST);
 
 		makeLoanBtn.addActionListener(this);
 		userLoans.addListSelectionListener(this);
@@ -77,10 +91,10 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.userLoans.setModel(userLoanListModel);
 	}
 	
-	public void addLoan(String media){
-		listModel.addElement(media);
-		userLoans.setModel(listModel);
-	}
+//	public void addLoan(String media){
+//		listModel.addElement(media);
+//		userLoans.setModel(listModel);
+//	}
 
 	public void showMediaInfo(String mediaInfo) {
 			mediaInfoTxt.setText(mediaInfo);

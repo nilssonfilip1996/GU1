@@ -89,17 +89,18 @@ public class Controller {
 		return mediaList;
 	}
 
-	public Media[] populateAvailableMediaList2(){
+	public Media[] populateAvailableMediaList2() {
 		Iterator<Media> values = mediaLibrary.availableMedia();
 		Media[] mediaList = new Media[mediaLibrary.size()];
-		int index=0;
-		while(values.hasNext()){
+		int index = 0;
+		while (values.hasNext()) {
 			mediaList[index] = values.next();
 			index++;
 		}
 		return mediaList;
-		
+
 	}
+
 	// denna är nog onödig, JList funkar lite annorlunda än JComboBox verkar det
 	// som
 	public String[] populateCurrentUserLoanList() {
@@ -112,12 +113,12 @@ public class Controller {
 		}
 		return loanList;
 	}
-	
-	public Media[] populateCurrentUserLoanList2(){				
+
+	public Media[] populateCurrentUserLoanList2() {
 		Iterator<Media> values = currentUser.loans().iterator();
 		Media[] loanList = new Media[currentUser.loans().size()];
-		int index=0;
-		while(values.hasNext()){
+		int index = 0;
+		while (values.hasNext()) {
 			loanList[index] = values.next();
 			index++;
 		}
@@ -174,10 +175,17 @@ public class Controller {
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
+			System.err.println(("User: " + currentUser.getName() + " has " + currentUser.loans().size() + " loans")); // test
+																														// för
+																														// att
+																														// se
+																														// antal
+																														// lånade
+																														// ex.
 			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
-//			test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
-//																// testing
-//																// borrow!
+			// test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
+			// // testing
+			// // borrow!
 			return true;
 		}
 		JOptionPane.showMessageDialog(null, "Media not found"); // Flytta till
@@ -196,5 +204,33 @@ public class Controller {
 		return false;
 	}
 
+	public void showMediaInfo(String key) {
+		Media theMedia = mediaLibrary.get(key);
+		if (theMedia instanceof Dvd) {
+			Dvd dvd = (Dvd) theMedia;
+			StringBuilder sb = new StringBuilder();
+			sb.append("Titel: " + dvd.getTitel() + "\n");
+			sb.append("Id: " + dvd.getId() + "\n");
+			sb.append("Släppt år: " + dvd.getYear() + "\n");
+			String[] actors = dvd.getActor();
+			sb.append("Skådespelare: ");
+			for (int i = 0; i < actors.length; i++) {
+				sb.append(actors[i]);
+				if (i < actors.length - 1) {
+					sb.append(", ");
+				}
+			}
+			mainWindow.updateMediaInfoField(sb.toString());
+		}
+		else if(theMedia instanceof Book){
+			Book book = (Book) theMedia;
+			StringBuilder sb = new StringBuilder();
+			sb.append("Titel: " + book.getTitel() + "\n");
+			sb.append("Id: " + book.getId() + "\n");
+			sb.append("Släppt år: " + book.getYear() + "\n");
+			sb.append("Författare: " + book.getAuthor());
+			mainWindow.updateMediaInfoField(sb.toString());
+		}
+	}
 
 }

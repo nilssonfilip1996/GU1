@@ -128,7 +128,7 @@ public class Controller {
 	public String[] searchTitle(String input) {
 		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
 		Iterator<Media> values = mediaLibrary.values();
-		ArrayList<String> resultlist = new ArrayList<String>();
+		ArrayList<String> foundIdlist = new ArrayList<String>();
 		int count = 0;
 
 		while (values.hasNext()) {
@@ -146,13 +146,13 @@ public class Controller {
 				if (count == inputs.length) { // Alla angivna sökord har hittats
 												// i en titel
 
-					resultlist.add(id);
+					foundIdlist.add(id);
 				}
 			}
 			count = 0;
 		}
 
-		return resultlist.toArray(new String[resultlist.size()]);
+		return foundIdlist.toArray(new String[foundIdlist.size()]);
 	}
 
 	public boolean login(String userID) {
@@ -170,6 +170,11 @@ public class Controller {
 	private void loginToLibraryPanel() {
 		mainWindow.loginToLibraryPanel(currentUser.getName());
 		mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
+	}
+	
+	public void logOut(){
+		currentUser = null;
+		mainWindow.libraryToLoginPanel();
 	}
 
 	public boolean borrowMedia(String mediaID) {
@@ -204,8 +209,9 @@ public class Controller {
 		return false;
 	}
 
-	public void showMediaInfo(String[] key) {
+	public void showMultipleMediaInfo(String[] key) {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Search Results: \n\n");
 		for (int i = 0; i < key.length; i++) {
 			Media theMedia = mediaLibrary.get(key[i]);
 			if (theMedia instanceof Dvd) {
@@ -234,7 +240,7 @@ public class Controller {
 		mainWindow.updateMediaInfoField(sb.toString());
 	}
 
-	public void showSeachResault(String key) {
+	public void showSingleMediaInfo(String key) {
 		Media theMedia = mediaLibrary.get(key);
 		if (theMedia instanceof Dvd) {
 			Dvd dvd = (Dvd) theMedia;
@@ -267,7 +273,7 @@ public class Controller {
 		if (temp.length == 0) {
 			mainWindow.updateMediaInfoField("Tyvärr inga träffar inga sökträffar på: " + str);
 		} else {
-			showMediaInfo(temp);
+			showMultipleMediaInfo(temp);
 		}
 	}
 

@@ -15,21 +15,22 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	private GuiTest2 mainFrame;
 	private JPanel librarySide;
 	private JPanel userSide;
+	private JPanel center;
+	private JPanel north;
 	private JLabel librarySideLbl;
 	private JLabel userSideLbl;
 	private JLabel welcomeLbl;
-	private JLabel middle = new JLabel();
-	private JPanel center = new JPanel(new BorderLayout());
+	private JLabel middle;
 	private JTextArea mediaInfoTxt;
 	private JList<String> availableMedia;
 	private JList<String> userLoans;
-	private JPanel southGrid = new JPanel(new GridLayout(1, 3));
+	private JPanel southGrid;
 	private JButton makeLoanBtn;
-	private JButton searchBtn = new JButton("Seach Media");
-	private JButton returnLoanBtn = new JButton("Return Media");
-	private JTextField searchText = new JTextField();
+	private JButton searchBtn;
+	private JButton logOutBtn;
+	private JButton returnLoanBtn;
+	private JTextField searchText;
 	private Controller controller;
-	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 
 	public LibraryPanel(GuiTest2 mainFrame, Controller controller) {
 		this.mainFrame = mainFrame;
@@ -39,27 +40,34 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 
 	private void drawLibraryPanel() {
 		setLayout(new BorderLayout());
+		this.returnLoanBtn = new JButton("Return Media");
+		this.searchBtn = new JButton("Seach Media");
+		this.logOutBtn = new JButton("Log Out");
+		this.searchText = new JTextField();
+		this.southGrid = new JPanel(new GridLayout(1, 3));
 		this.librarySide = new JPanel();
+		this.center = new JPanel(new BorderLayout());
+		this.north = new JPanel(new BorderLayout());
+		this.middle = new JLabel();
 		this.librarySide.setLayout(new BorderLayout());
 		this.userSide = new JPanel();
 		this.userSide.setLayout(new BorderLayout());
 		this.librarySideLbl = new JLabel("Available Media:");
-		librarySideLbl.setBackground(Color.CYAN);
-		librarySideLbl.setOpaque(true);
+		this.librarySideLbl.setBackground(Color.CYAN);
+		this.librarySideLbl.setOpaque(true);
 		this.welcomeLbl = new JLabel();
-		welcomeLbl.setOpaque(true);
-		welcomeLbl.setBackground(Color.PINK);
+		this.welcomeLbl.setOpaque(true);
+		this.welcomeLbl.setBackground(Color.PINK);
 		this.userSideLbl = new JLabel("User loans:");
-		userSideLbl.setBackground(Color.MAGENTA);
-		userSideLbl.setOpaque(true);
-		;
+		this.userSideLbl.setBackground(Color.MAGENTA);
+		this.userSideLbl.setOpaque(true);
 		this.availableMedia = new JList<String>();
 		this.userLoans = new JList<String>();
 		this.makeLoanBtn = new JButton("Make Loan");
 		add(center, BorderLayout.CENTER);
 		this.mediaInfoTxt = new JTextArea();
 		this.mediaInfoTxt.setEditable(false);
-
+		
 		southGrid.setBackground(Color.BLUE);
 		southGrid.setOpaque(true);
 		southGrid.add(makeLoanBtn);
@@ -83,23 +91,24 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLbl.setPreferredSize(new Dimension(getWidth(), 40));
 		makeLoanBtn.setPreferredSize(new Dimension(getWidth(), 60));
-		add(welcomeLbl, BorderLayout.NORTH);
+		north.add(welcomeLbl, BorderLayout.CENTER);
+		north.add(logOutBtn, BorderLayout.EAST);
+		add(north, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
 
-		// add(makeLoanBtn, BorderLayout.SOUTH);
 		add(southGrid, BorderLayout.SOUTH);
 		librarySide.setPreferredSize(new Dimension(320, getHeight()));
 		add(librarySide, BorderLayout.WEST);
 		userSide.setPreferredSize(new Dimension(320, getHeight()));
 		add(userSide, BorderLayout.EAST);
 
-		// add(searchBtn, BorderLayout.SOUTH);
 
 		makeLoanBtn.addActionListener(this);
 		searchBtn.addActionListener(this);
 		returnLoanBtn.addActionListener(this);
 		userLoans.addListSelectionListener(this);
 		availableMedia.addListSelectionListener(this);
+		logOutBtn.addActionListener(this);
 	}
 
 	public void fillUserName(String name) {
@@ -152,10 +161,11 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting()) {
 			if (e.getSource() == availableMedia) {
-				String[] str = { availableMedia.getSelectedValue().substring(0, 6) };
-				controller.showMediaInfo(str);
+				controller.showSingleMediaInfo(availableMedia.getSelectedValue().substring(0, 6));
+				userLoans.clearSelection();
 			} else if (e.getSource() == userLoans) {
-
+				controller.showSingleMediaInfo(userLoans.getSelectedValue().substring(0, 6));
+				availableMedia.clearSelection();
 			}
 		}
 	}
@@ -174,7 +184,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		} else if (e.getSource() == searchBtn) {
 			String input = searchText.getText();
 			controller.showFoundMedia(input);
-
+		}
+		else if(e.getSource() == logOutBtn){
+			controller.logOut();
 		}
 	}
 

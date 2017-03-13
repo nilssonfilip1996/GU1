@@ -53,6 +53,12 @@ public class GuiTest2 extends JFrame {
 		
 	}
 
+	public void libraryToLoginPanel() {
+		logInPanel.setVisible(true);
+		libraryPanel.setVisible(false);
+		
+	}
+
 	
 	
 	

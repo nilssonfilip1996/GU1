@@ -88,7 +88,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 
 		// add(makeLoanBtn, BorderLayout.SOUTH);
 		add(southGrid, BorderLayout.SOUTH);
+		librarySide.setPreferredSize(new Dimension(320, getHeight()));
 		add(librarySide, BorderLayout.WEST);
+		userSide.setPreferredSize(new Dimension(320, getHeight()));
 		add(userSide, BorderLayout.EAST);
 
 		// add(searchBtn, BorderLayout.SOUTH);

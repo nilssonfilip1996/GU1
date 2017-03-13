@@ -17,6 +17,7 @@ public class LogInPanel extends JPanel{
 	}
 	
 	private void drawLoginPanel(){
+		setBackground(Color.PINK);
 		logInLbl = new JLabel("Enter login");
 		logInTxt = new JTextField();
 		logInTxt.setPreferredSize(new Dimension(100, 20));
@@ -35,7 +36,6 @@ public class LogInPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==logInBtn){
-				System.out.println("hej");
 				mainFrame.logInPressed(logInTxt.getText());
 			}
 			

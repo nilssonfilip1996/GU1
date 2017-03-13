@@ -130,8 +130,12 @@ public class Controller {
 		Iterator<Media> values = mediaLibrary.values();
 		ArrayList<String> resultlist = new ArrayList<String>();
 		int count = 0;
+
 		while (values.hasNext()) {
-			String ref = values.next().getTitel();
+			Media media = values.next();
+			String ref = media.getTitel();
+			String id = media.getId();
+			// String ref = values.next().getTitel();
 			String[] refs = ref.toLowerCase().split("[^a-öA-Ö0-9]+");
 			for (int i = 0; i < inputs.length; i++) {
 				for (int j = 0; j < refs.length; j++) {
@@ -141,17 +145,13 @@ public class Controller {
 				}
 				if (count == inputs.length) { // Alla angivna sökord har hittats
 												// i en titel
-					resultlist.add(ref);
+
+					resultlist.add(id);
 				}
 			}
 			count = 0;
 		}
-		if (resultlist.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "No results for keyword(s): " + input); // <-
-																						// Flytta
-																						// till
-																						// GUI?
-		}
+
 		return resultlist.toArray(new String[resultlist.size()]);
 	}
 
@@ -188,23 +188,53 @@ public class Controller {
 			// // borrow!
 			return true;
 		}
-		JOptionPane.showMessageDialog(null, "Media not found"); // Flytta till
-																// GUI?
+														
 		return false;
 	}
 
 	public boolean returnMedia(String mediaID) {
 		if (currentUser.loans().contains(mediaLibrary.get(mediaID))) {
 			currentUser.returnMedia(mediaLibrary.returnMedia(mediaID));
+			System.err.println(("User: " + currentUser.getName() + " has " + currentUser.loans().size() + " loans"));
+			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
 			return true;
+
 		}
-		JOptionPane.showMessageDialog(null, "Loan not found for this User"); // Flytta
-																				// till
-																				// GUI?
+		
 		return false;
 	}
 
-	public void showMediaInfo(String key) {
+	public void showMediaInfo(String[] key) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < key.length; i++) {
+			Media theMedia = mediaLibrary.get(key[i]);
+			if (theMedia instanceof Dvd) {
+				Dvd dvd = (Dvd) theMedia;
+				sb.append("Titel: " + dvd.getTitel() + "\n");
+				sb.append("Id: " + dvd.getId() + "\n");
+				sb.append("Släppt år: " + dvd.getYear() + "\n");
+				String[] actors = dvd.getActor();
+				sb.append("Skådespelare: ");
+				for (int j = 0; j < actors.length; j++) {
+					sb.append(actors[j]);
+					if (j < actors.length - 1) {
+						sb.append(", ");
+					}
+				}
+				
+			} else if (theMedia instanceof Book) {
+				Book book = (Book) theMedia;
+				sb.append("Titel: " + book.getTitel() + "\n");
+				sb.append("Id: " + book.getId() + "\n");
+				sb.append("Släppt år: " + book.getYear() + "\n");
+				sb.append("Författare: " + book.getAuthor());
+			}
+			sb.append("\n" + "-----------------------------------------" +"\n");
+		}
+		mainWindow.updateMediaInfoField(sb.toString());
+	}
+
+	public void showSeachResault(String key) {
 		Media theMedia = mediaLibrary.get(key);
 		if (theMedia instanceof Dvd) {
 			Dvd dvd = (Dvd) theMedia;
@@ -221,8 +251,7 @@ public class Controller {
 				}
 			}
 			mainWindow.updateMediaInfoField(sb.toString());
-		}
-		else if(theMedia instanceof Book){
+		} else if (theMedia instanceof Book) {
 			Book book = (Book) theMedia;
 			StringBuilder sb = new StringBuilder();
 			sb.append("Titel: " + book.getTitel() + "\n");
@@ -230,6 +259,15 @@ public class Controller {
 			sb.append("Släppt år: " + book.getYear() + "\n");
 			sb.append("Författare: " + book.getAuthor());
 			mainWindow.updateMediaInfoField(sb.toString());
+		}
+	}
+
+	public void showFoundMedia(String str) {
+		String[] temp = searchTitle(str);
+		if (temp.length == 0) {
+			mainWindow.updateMediaInfoField("Tyvärr inga träffar inga sökträffar på: " + str);
+		} else {
+			showMediaInfo(temp);
 		}
 	}
 

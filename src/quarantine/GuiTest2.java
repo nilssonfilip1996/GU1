@@ -34,9 +34,7 @@ public class GuiTest2 extends JFrame {
 	}
 
 	public void logInPressed(String idEntered) {
-		if (controller.login(idEntered)) {
-			JOptionPane.showMessageDialog(null, "Success!");
-		}
+		controller.login(idEntered);
 	}
 
 	public void loginToLibraryPanel(String name) {

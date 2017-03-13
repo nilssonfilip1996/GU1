@@ -271,7 +271,7 @@ public class Controller {
 	public void showFoundMedia(String str) {
 		String[] temp = searchTitle(str);
 		if (temp.length == 0) {
-			mainWindow.updateMediaInfoField("Tyvärr inga träffar inga sökträffar på: " + str);
+			mainWindow.updateMediaInfoField("Tyvärr inga sökträffar på: " + str);
 		} else {
 			showMultipleMediaInfo(temp);
 		}

@@ -11,7 +11,7 @@ import javax.swing.event.*;
 import gu1.Controller;
 import gu1.Media;
 
-public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener {
+public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener, KeyListener {
 	private GuiTest2 mainFrame;
 	private JPanel librarySide;
 	private JPanel userSide;
@@ -67,7 +67,8 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		add(center, BorderLayout.CENTER);
 		this.mediaInfoTxt = new JTextArea();
 		this.mediaInfoTxt.setEditable(false);
-		
+		searchText.setText("Skriv in sökord");
+
 		southGrid.setBackground(Color.BLUE);
 		southGrid.setOpaque(true);
 		southGrid.add(makeLoanBtn);
@@ -102,13 +103,13 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		userSide.setPreferredSize(new Dimension(320, getHeight()));
 		add(userSide, BorderLayout.EAST);
 
-
 		makeLoanBtn.addActionListener(this);
 		searchBtn.addActionListener(this);
 		returnLoanBtn.addActionListener(this);
 		userLoans.addListSelectionListener(this);
 		availableMedia.addListSelectionListener(this);
 		logOutBtn.addActionListener(this);
+		searchText.addKeyListener(this);
 	}
 
 	public void fillUserName(String name) {
@@ -121,19 +122,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 			if (availableMedia[i] != null) {
 				availableMediaListModel.addElement(availableMedia[i].getId() + ", " + availableMedia[i].getTitel()); // Nödlösning,
 																														// visar
-																														// upp
-																														// mediats
-																														// id
-																														// tillsamans
-																														// med
-																														// titeln
-																														// för
-																														// att
-																														// sedan
-																														// kunna
-																														// hämta
-																														// mediats
-																														// id.
+				// hämta
+				// mediats
+				// id.
 			}
 		}
 		this.availableMedia.setModel(availableMediaListModel);
@@ -184,10 +175,31 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		} else if (e.getSource() == searchBtn) {
 			String input = searchText.getText();
 			controller.showFoundMedia(input);
-		}
-		else if(e.getSource() == logOutBtn){
+		} else if (e.getSource() == logOutBtn) {
 			controller.logOut();
 		}
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER)) {
+			String input = searchText.getText();
+			controller.showFoundMedia(input);
+		}
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

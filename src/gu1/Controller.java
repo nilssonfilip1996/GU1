@@ -86,7 +86,7 @@ public class Controller {
 
 	public String[] searchTitle(String input) {
 		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
-		Iterator<Media> values = mediaLibrary.values();
+		Iterator<Media> values = mediaLibrary.availableMedia();
 		ArrayList<String> foundIdlist = new ArrayList<String>();
 		int count = 0;
 
@@ -94,7 +94,6 @@ public class Controller {
 			Media media = values.next();
 			String ref = media.getTitle();
 			String id = media.getId();
-			// String ref = values.next().getTitel();
 			String[] refs = ref.toLowerCase().split("[^a-öA-Ö0-9]+");
 			for (int i = 0; i < inputs.length; i++) {
 				for (int j = 0; j < refs.length; j++) {

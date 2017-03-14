@@ -62,7 +62,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		add(center, BorderLayout.CENTER);
 		this.mediaInfoTxt = new JTextArea();
 		this.mediaInfoTxt.setEditable(false);
-		searchText.setText("Search...");
+		searchText.setText("Search for available titles...");
 
 		southGrid.setBackground(Color.BLUE);
 		southGrid.setOpaque(true);

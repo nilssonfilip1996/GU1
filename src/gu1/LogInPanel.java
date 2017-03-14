@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class LogInPanel extends JPanel{
+public class LogInPanel extends JPanel implements ActionListener {
 	private MediaViewer mainFrame;
 	private JLabel logInLbl;
 	private JTextField logInTxt;
@@ -26,15 +26,12 @@ public class LogInPanel extends JPanel{
 		add(logInLbl);
 		add(logInTxt);
 		add(logInBtn);
-		ButtonListener listener = new ButtonListener();
-		logInBtn.addActionListener(listener);
+		logInBtn.addActionListener(this);
 	}
 	
-	private class ButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==logInBtn){
-				mainFrame.logInPressed(logInTxt.getText());
-			}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==logInBtn){
+			mainFrame.logInPressed(logInTxt.getText());
 		}
 	}
 }

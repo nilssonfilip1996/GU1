@@ -12,7 +12,7 @@ import gu1.Controller;
 import gu1.Media;
 
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener, KeyListener {
-	private GuiTest2 mainFrame;
+
 	private JPanel librarySide;
 	private JPanel userSide;
 	private JPanel center;
@@ -32,8 +32,8 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	private JTextField searchText;
 	private Controller controller;
 
-	public LibraryPanel(GuiTest2 mainFrame, Controller controller) {
-		this.mainFrame = mainFrame;
+	public LibraryPanel(Controller controller) {
+		
 		this.controller = controller;
 		drawLibraryPanel();
 	}
@@ -120,11 +120,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		DefaultListModel<String> availableMediaListModel = new DefaultListModel<String>();
 		for (int i = 0; i < availableMedia.length; i++) {
 			if (availableMedia[i] != null) {
-				availableMediaListModel.addElement(availableMedia[i].getId() + ", " + availableMedia[i].getTitel()); // Nödlösning,
-																														// visar
-				// hämta
-				// mediats
-				// id.
+				availableMediaListModel.addElement(availableMedia[i].getId() + ", " + availableMedia[i].getTitel()); 
+																														
+			
 			}
 		}
 		this.availableMedia.setModel(availableMediaListModel);
@@ -139,10 +137,6 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.userLoans.setModel(userLoanListModel);
 	}
 
-	// public void addLoan(String media){
-	// listModel.addElement(media);
-	// userLoans.setModel(listModel);
-	// }
 
 	public void showMediaInfo(String mediaInfo) {
 		mediaInfoTxt.setText(mediaInfo);
@@ -183,7 +177,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -198,7 +192,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+	
 
 	}
 

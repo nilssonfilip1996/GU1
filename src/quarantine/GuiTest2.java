@@ -28,7 +28,7 @@ public class GuiTest2 extends JFrame {
 	}
 
 	private void drawLibraryPanel() {
-		libraryPanel = new LibraryPanel(this, controller);
+		libraryPanel = new LibraryPanel(controller);
 		add(libraryPanel);
 		libraryPanel.setVisible(false);
 	}

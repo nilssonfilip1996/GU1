@@ -171,8 +171,8 @@ public class Controller {
 		mainWindow.loginToLibraryPanel(currentUser.getName());
 		mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
 	}
-	
-	public void logOut(){
+
+	public void logOut() {
 		currentUser = null;
 		mainWindow.libraryToLoginPanel();
 	}
@@ -193,7 +193,7 @@ public class Controller {
 			// // borrow!
 			return true;
 		}
-														
+
 		return false;
 	}
 
@@ -205,7 +205,7 @@ public class Controller {
 			return true;
 
 		}
-		
+
 		return false;
 	}
 
@@ -216,26 +216,26 @@ public class Controller {
 			Media theMedia = mediaLibrary.get(key[i]);
 			if (theMedia instanceof Dvd) {
 				Dvd dvd = (Dvd) theMedia;
-				sb.append("Titel: " + dvd.getTitel() + "\n");
+				sb.append("Title: " + dvd.getTitel() + "\n");
 				sb.append("Id: " + dvd.getId() + "\n");
-				sb.append("Släppt år: " + dvd.getYear() + "\n");
+				sb.append("Year: " + dvd.getYear() + "\n");
 				String[] actors = dvd.getActor();
-				sb.append("Skådespelare: ");
+				sb.append("Actor(s): ");
 				for (int j = 0; j < actors.length; j++) {
 					sb.append(actors[j]);
 					if (j < actors.length - 1) {
 						sb.append(", ");
 					}
 				}
-				
+
 			} else if (theMedia instanceof Book) {
 				Book book = (Book) theMedia;
-				sb.append("Titel: " + book.getTitel() + "\n");
+				sb.append("Title: " + book.getTitel() + "\n");
 				sb.append("Id: " + book.getId() + "\n");
-				sb.append("Släppt år: " + book.getYear() + "\n");
-				sb.append("Författare: " + book.getAuthor());
+				sb.append("Year: " + book.getYear() + "\n");
+				sb.append("Author(s): " + book.getAuthor());
 			}
-			sb.append("\n" + "-----------------------------------------" +"\n");
+			sb.append("\n" + "-----------------------------------------" + "\n");
 		}
 		mainWindow.updateMediaInfoField(sb.toString());
 	}
@@ -245,11 +245,11 @@ public class Controller {
 		if (theMedia instanceof Dvd) {
 			Dvd dvd = (Dvd) theMedia;
 			StringBuilder sb = new StringBuilder();
-			sb.append("Titel: " + dvd.getTitel() + "\n");
+			sb.append("Title: " + dvd.getTitel() + "\n");
 			sb.append("Id: " + dvd.getId() + "\n");
-			sb.append("Släppt år: " + dvd.getYear() + "\n");
+			sb.append("Year: " + dvd.getYear() + "\n");
 			String[] actors = dvd.getActor();
-			sb.append("Skådespelare: ");
+			sb.append("Actor(s): ");
 			for (int i = 0; i < actors.length; i++) {
 				sb.append(actors[i]);
 				if (i < actors.length - 1) {
@@ -260,10 +260,10 @@ public class Controller {
 		} else if (theMedia instanceof Book) {
 			Book book = (Book) theMedia;
 			StringBuilder sb = new StringBuilder();
-			sb.append("Titel: " + book.getTitel() + "\n");
+			sb.append("Title: " + book.getTitel() + "\n");
 			sb.append("Id: " + book.getId() + "\n");
-			sb.append("Släppt år: " + book.getYear() + "\n");
-			sb.append("Författare: " + book.getAuthor());
+			sb.append("Year: " + book.getYear() + "\n");
+			sb.append("Author(s): " + book.getAuthor());
 			mainWindow.updateMediaInfoField(sb.toString());
 		}
 	}
@@ -271,7 +271,7 @@ public class Controller {
 	public void showFoundMedia(String str) {
 		String[] temp = searchTitle(str);
 		if (temp.length == 0) {
-			mainWindow.updateMediaInfoField("Tyvärr inga sökträffar på: " + str);
+			mainWindow.updateMediaInfoField("Sorry, no results for the keyword(s): " + str);
 		} else {
 			showMultipleMediaInfo(temp);
 		}

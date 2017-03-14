@@ -19,6 +19,6 @@ public class Dvd extends Media{
 	}
 
 	public String toString() {
-		return "Dvd [id=" + this.getId() + ", titel=" + this.getTitel() + ", year=" + this.getYear() + ", actors=" + Arrays.toString(actors) + "]";
+		return "Dvd [id=" + this.getId() + ", titel=" + this.getTitle() + ", year=" + this.getYear() + ", actors=" + Arrays.toString(actors) + "]";
 	}
 }

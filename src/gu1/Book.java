@@ -17,6 +17,6 @@ private String author;
 	}
 	
 	public String toString() {
-		return "Book [id=" + this.getId() + ", author=" + author + ", titel=" + this.getTitel() + ", year=" + this.getYear() + "]";
+		return "Book [id=" + this.getId() + ", author=" + author + ", titel=" + this.getTitle() + ", year=" + this.getYear() + "]";
 	}
 }

@@ -66,7 +66,7 @@ public class GUItest extends JPanel implements ActionListener {
 		profileWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		profileWindow.setLayout(new FlowLayout());
 		
-		mediaAvailable = new JList<String>(c.populateAvailableMediaList());
+		//mediaAvailable = new JList<String>(c.populateAvailableMediaList());
 		mediaUserLoan = new JList<String>();
 		
 		profileWindow.add(mediaAvailable);

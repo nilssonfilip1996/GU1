@@ -1,14 +1,12 @@
 package gu1;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class User {
 	private String id;
 	private String name;
 	private String phoneNr;
 	private LinkedList<Media> loans;
-	//private Queue<Media> loans2;				//Ändra till kö så att de lagras i tidsordning?
 	
 	public User(String id, String name, String phoneNr) {
 		this.id = id;

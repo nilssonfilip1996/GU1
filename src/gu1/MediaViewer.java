@@ -1,18 +1,16 @@
-package quarantine;
+package gu1;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.*;
 
-import gu1.*;
 
-public class GuiTest2 extends JFrame {
+public class MediaViewer extends JFrame {
 	private Controller controller;
 	private LogInPanel logInPanel;
 	private LibraryPanel libraryPanel;
 
-	public GuiTest2(Controller controller) {
+	public MediaViewer(Controller controller) {
 		this.controller = controller;
 		setSize(1200, 700);
 		setVisible(true);
@@ -49,27 +47,11 @@ public class GuiTest2 extends JFrame {
 	}
 
 	public void updateMediaInfoField(String media) {
-		libraryPanel.showMediaInfo(media);
-		
+		libraryPanel.showMediaInfo(media);	
 	}
 
 	public void libraryToLoginPanel() {
 		logInPanel.setVisible(true);
-		libraryPanel.setVisible(false);
-		
+		libraryPanel.setVisible(false);	
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
 }

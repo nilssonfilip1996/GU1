@@ -5,34 +5,17 @@ import java.util.*;
 import javax.swing.*;
 
 import quarantine.GUItest;
-import quarantine.GuiTest2;
 
 public class Controller {
 	private MediaLibrary<String, Media> mediaLibrary;
 	private UserDatabase<String, User> userDatabase;
 	private User currentUser;
-	private GUItest test;
-	private GuiTest2 mainWindow;
+	private MediaViewer mainWindow;
 
 	public Controller(String mediaListPath, String userListPath) {
 		this.userDatabase = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
-		this.mainWindow = new GuiTest2(this);
-		// test = new GUItest(this);
-
-		// //Login and loan test
-		// login(JOptionPane.showInputDialog("Login with ID"));
-		// borrowMedia(JOptionPane.showInputDialog("Enter Media ID to borrow"));
-		// userDatabase.print();
-		// mediaLibrary.print();
-		// returnMedia(JOptionPane.showInputDialog("Enter Media ID to return"));
-		// userDatabase.print();
-		// mediaLibrary.print();
-
-		// SearchTest
-		// for (String s : searchTitle(JOptionPane.showInputDialog("Search"))){
-		// System.out.println(s);
-		// }
+		this.mainWindow = new MediaViewer(this);
 	}
 
 	public UserDatabase<String, User> populateUserDatabase(String userListPath) {
@@ -78,18 +61,7 @@ public class Controller {
 		return mediaList;
 	}
 
-	public String[] populateAvailableMediaList() {
-		Iterator<Media> values = mediaLibrary.values();
-		String[] mediaList = new String[mediaLibrary.size()];
-		int index = 0;
-		while (values.hasNext()) {
-			mediaList[index] = values.next().getTitel();
-			index++;
-		}
-		return mediaList;
-	}
-
-	public Media[] populateAvailableMediaList2() {
+	public Media[] populateAvailableMediaList() {
 		Iterator<Media> values = mediaLibrary.availableMedia();
 		Media[] mediaList = new Media[mediaLibrary.size()];
 		int index = 0;
@@ -101,20 +73,7 @@ public class Controller {
 
 	}
 
-	// denna är nog onödig, JList funkar lite annorlunda än JComboBox verkar det
-	// som
-	public String[] populateCurrentUserLoanList() {
-		Iterator<Media> values = currentUser.loans().iterator();
-		String[] loanList = new String[currentUser.loans().size()];
-		int index = 0;
-		while (values.hasNext()) {
-			loanList[index] = values.next().getTitel();
-			index++;
-		}
-		return loanList;
-	}
-
-	public Media[] populateCurrentUserLoanList2() {
+	public Media[] populateCurrentUserLoanList() {
 		Iterator<Media> values = currentUser.loans().iterator();
 		Media[] loanList = new Media[currentUser.loans().size()];
 		int index = 0;
@@ -133,7 +92,7 @@ public class Controller {
 
 		while (values.hasNext()) {
 			Media media = values.next();
-			String ref = media.getTitel();
+			String ref = media.getTitle();
 			String id = media.getId();
 			// String ref = values.next().getTitel();
 			String[] refs = ref.toLowerCase().split("[^a-öA-Ö0-9]+");
@@ -143,9 +102,7 @@ public class Controller {
 						count++;
 					}
 				}
-				if (count == inputs.length) { // Alla angivna sökord har hittats
-												// i en titel
-
+				if (count == inputs.length) {
 					foundIdlist.add(id);
 				}
 			}
@@ -158,18 +115,16 @@ public class Controller {
 	public boolean login(String userID) {
 		if (userDatabase.contains(userID)) {
 			currentUser = userDatabase.get(userID);
-			loginToLibraryPanel(); // Ta bort denna rad om ni använder GUITest
-									// som GUI
+			loginToLibraryPanel(); 
 			return true;
 		}
-		JOptionPane.showMessageDialog(null, "User not found"); // Flytta till
-																// GUI?
+		JOptionPane.showMessageDialog(null, "User not found");														// GUI?
 		return false;
 	}
 
 	private void loginToLibraryPanel() {
 		mainWindow.loginToLibraryPanel(currentUser.getName());
-		mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
+		mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 	}
 
 	public void logOut() {
@@ -180,17 +135,7 @@ public class Controller {
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
-			System.err.println(("User: " + currentUser.getName() + " has " + currentUser.loans().size() + " loans")); // test
-																														// för
-																														// att
-																														// se
-																														// antal
-																														// lånade
-																														// ex.
-			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
-			// test.addLoan(mediaLibrary.get(mediaID).getTitel()); // <-------
-			// // testing
-			// // borrow!
+			mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 			return true;
 		}
 
@@ -200,12 +145,9 @@ public class Controller {
 	public boolean returnMedia(String mediaID) {
 		if (currentUser.loans().contains(mediaLibrary.get(mediaID))) {
 			currentUser.returnMedia(mediaLibrary.returnMedia(mediaID));
-			System.err.println(("User: " + currentUser.getName() + " has " + currentUser.loans().size() + " loans"));
-			mainWindow.updateMediaLists(populateAvailableMediaList2(), populateCurrentUserLoanList2());
+			mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 			return true;
-
 		}
-
 		return false;
 	}
 
@@ -216,7 +158,7 @@ public class Controller {
 			Media theMedia = mediaLibrary.get(key[i]);
 			if (theMedia instanceof Dvd) {
 				Dvd dvd = (Dvd) theMedia;
-				sb.append("Title: " + dvd.getTitel() + "\n");
+				sb.append("Title: " + dvd.getTitle() + "\n");
 				sb.append("Id: " + dvd.getId() + "\n");
 				sb.append("Year: " + dvd.getYear() + "\n");
 				String[] actors = dvd.getActor();
@@ -230,7 +172,7 @@ public class Controller {
 
 			} else if (theMedia instanceof Book) {
 				Book book = (Book) theMedia;
-				sb.append("Title: " + book.getTitel() + "\n");
+				sb.append("Title: " + book.getTitle() + "\n");
 				sb.append("Id: " + book.getId() + "\n");
 				sb.append("Year: " + book.getYear() + "\n");
 				sb.append("Author(s): " + book.getAuthor());
@@ -245,7 +187,7 @@ public class Controller {
 		if (theMedia instanceof Dvd) {
 			Dvd dvd = (Dvd) theMedia;
 			StringBuilder sb = new StringBuilder();
-			sb.append("Title: " + dvd.getTitel() + "\n");
+			sb.append("Title: " + dvd.getTitle() + "\n");
 			sb.append("Id: " + dvd.getId() + "\n");
 			sb.append("Year: " + dvd.getYear() + "\n");
 			String[] actors = dvd.getActor();
@@ -260,7 +202,7 @@ public class Controller {
 		} else if (theMedia instanceof Book) {
 			Book book = (Book) theMedia;
 			StringBuilder sb = new StringBuilder();
-			sb.append("Title: " + book.getTitel() + "\n");
+			sb.append("Title: " + book.getTitle() + "\n");
 			sb.append("Id: " + book.getId() + "\n");
 			sb.append("Year: " + book.getYear() + "\n");
 			sb.append("Author(s): " + book.getAuthor());

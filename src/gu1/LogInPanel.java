@@ -1,4 +1,4 @@
-package quarantine;
+package gu1;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,12 +6,12 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class LogInPanel extends JPanel{
-	private GuiTest2 mainFrame;
+	private MediaViewer mainFrame;
 	private JLabel logInLbl;
 	private JTextField logInTxt;
 	private JButton logInBtn;
 	
-	public LogInPanel(GuiTest2 mainFrame){
+	public LogInPanel(MediaViewer mainFrame){
 		this.mainFrame = mainFrame;
 		drawLoginPanel();
 	}
@@ -30,16 +30,11 @@ public class LogInPanel extends JPanel{
 		logInBtn.addActionListener(listener);
 	}
 	
-	
 	private class ButtonListener implements ActionListener {
-
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==logInBtn){
 				mainFrame.logInPressed(logInTxt.getText());
 			}
-			
 		}
-
 	}
 }

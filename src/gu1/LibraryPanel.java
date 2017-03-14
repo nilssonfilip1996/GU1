@@ -1,15 +1,10 @@
-package quarantine;
+package gu1;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import gu1.Controller;
-import gu1.Media;
 
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener, KeyListener {
 
@@ -33,7 +28,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	private Controller controller;
 
 	public LibraryPanel(Controller controller) {
-		
+
 		this.controller = controller;
 		drawLibraryPanel();
 	}
@@ -63,11 +58,11 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.userSideLbl.setOpaque(true);
 		this.availableMedia = new JList<String>();
 		this.userLoans = new JList<String>();
-		this.makeLoanBtn = new JButton("Make Loan");
+		this.makeLoanBtn = new JButton("Loan");
 		add(center, BorderLayout.CENTER);
 		this.mediaInfoTxt = new JTextArea();
 		this.mediaInfoTxt.setEditable(false);
-		searchText.setText("Skriv in sökord");
+		searchText.setText("Search...");
 
 		southGrid.setBackground(Color.BLUE);
 		southGrid.setOpaque(true);
@@ -120,9 +115,7 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		DefaultListModel<String> availableMediaListModel = new DefaultListModel<String>();
 		for (int i = 0; i < availableMedia.length; i++) {
 			if (availableMedia[i] != null) {
-				availableMediaListModel.addElement(availableMedia[i].getId() + ", " + availableMedia[i].getTitel()); 
-																														
-			
+				availableMediaListModel.addElement(availableMedia[i].getId() + ", " + availableMedia[i].getTitle());
 			}
 		}
 		this.availableMedia.setModel(availableMediaListModel);
@@ -131,18 +124,15 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	public void fillUserLoanList(Media[] userLoans) {
 		DefaultListModel<String> userLoanListModel = new DefaultListModel<String>();
 		for (int i = 0; i < userLoans.length; i++) {
-			userLoanListModel.addElement(userLoans[i].getId() + ", " + userLoans[i].getTitel());
+			userLoanListModel.addElement(userLoans[i].getId() + ", " + userLoans[i].getTitle());
 		}
-
 		this.userLoans.setModel(userLoanListModel);
 	}
-
 
 	public void showMediaInfo(String mediaInfo) {
 		mediaInfoTxt.setText(mediaInfo);
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting()) {
 			if (e.getSource() == availableMedia) {
@@ -155,13 +145,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		}
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == makeLoanBtn && !availableMedia.isSelectionEmpty()) {
-			String mediaID = availableMedia.getSelectedValue().substring(0, 6); // urskilja
-																				// nyckeln
-																				// till
-																				// media.
+			String mediaID = availableMedia.getSelectedValue().substring(0, 6);
 			controller.borrowMedia(mediaID);
 		} else if (e.getSource() == returnLoanBtn && !userLoans.isSelectionEmpty()) {
 			String mediaID = userLoans.getSelectedValue().substring(0, 6);
@@ -172,28 +158,18 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		} else if (e.getSource() == logOutBtn) {
 			controller.logOut();
 		}
-
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
-		
-
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		if ((e.getKeyCode() == KeyEvent.VK_ENTER)) {
 			String input = searchText.getText();
 			controller.showFoundMedia(input);
 		}
-
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
-	
-
 	}
-
 }

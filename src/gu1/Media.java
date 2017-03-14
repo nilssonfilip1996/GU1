@@ -3,12 +3,12 @@ package gu1;
 public abstract class Media {
 	private String id;
 	private String year;
-	private String titel;
+	private String title;
 
 	public Media(String id, String year, String titel) {
 		this.id = id;
 		this.year = year;
-		this.titel = titel;
+		this.title = titel;
 	}
 
 	public String getYear() {
@@ -19,12 +19,12 @@ public abstract class Media {
 		this.year = year;
 	}
 
-	public String getTitel() {
-		return titel;
+	public String getTitle() {
+		return title;
 	}
 
 	public void setTitel(String titel) {
-		this.titel = titel;
+		this.title = titel;
 	}
 
 	public void setId(String id) {
@@ -40,7 +40,7 @@ public abstract class Media {
 	}
 
 	public String toString() {
-		return "Media [id=" + id + ", year=" + year + ", titel=" + titel + "]";
+		return "Media [id=" + id + ", year=" + year + ", titel=" + title + "]";
 	}
 
 	public boolean equals(Object obj) {

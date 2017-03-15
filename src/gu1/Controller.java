@@ -16,7 +16,7 @@ public class Controller {
 	private User currentUser;
 	private MediaViewer mainWindow;
 /**
- * This constructor takes to strings as its arguments. These strings in
+ * This constructor takes two strings as its arguments. These strings in
  * turn correspond to names of text files. The constructor uses these
  * files to populate the UserDatabase and MediaLibrary. Also, an instance 
  * of the MediaViewer is created. This enables the controller to draw the

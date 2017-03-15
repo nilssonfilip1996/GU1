@@ -6,6 +6,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+/**
+ * 
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
+ *
+ */
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener, KeyListener {
 
 	private JPanel librarySide;

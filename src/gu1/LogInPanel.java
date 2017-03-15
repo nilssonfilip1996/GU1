@@ -5,6 +5,11 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+/**
+ * 
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
+ *
+ */
 public class LogInPanel extends JPanel implements ActionListener {
 	private MediaViewer mainFrame;
 	private JLabel logInLbl;

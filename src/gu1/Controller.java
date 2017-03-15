@@ -111,9 +111,10 @@ public class Controller {
 		return loanList;
 	}
 /**
- * 
- * @param input
- * @return
+ * This method takes a string as its input and searches the available media objects
+ * to find a match. If a match is found
+ * @param input - the piece of information used to search through the media objects.
+ * @return A string array containing the information about a certain type of media
  */
 	public String[] searchTitle(String input) {
 		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
@@ -263,11 +264,11 @@ public class Controller {
  * @param str
  */
 	public void showFoundMedia(String str) {
-		String[] temp = searchTitle(str);
-		if (temp.length == 0) {
-			mainWindow.updateMediaInfoField("Sorry, no results for the keyword(s): " + str);
+		String[] keyword = searchTitle(str);
+		if (keyword.length == 0) {
+			mainWindow.updateMediaInfoField("Sorry, no results for the keyword: " + str);
 		} else {
-			showMultipleMediaInfo(temp);
+			showMultipleMediaInfo(keyword);
 		}
 	}
 

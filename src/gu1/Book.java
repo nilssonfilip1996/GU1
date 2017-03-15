@@ -1,9 +1,9 @@
 package gu1;
 
 /**
- * A class that holds the id, author and title of
- * a given book object. The Book class extends Media.
- * @author ?
+ * A class that holds the id, author, title and year of publication 
+ * of a given Book object. The Book class extends Media.
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
  *
  */
 
@@ -12,7 +12,7 @@ private String author;
 	/**
 	 * A constructor that takes four arguments
 	 * three of these, id, year and title 
-	 * are sent to and later handled by the Media class.
+	 * are sent to, and later handled by, the Media class.
 	 * @param id
 	 * @param author
 	 * @param titel
@@ -25,7 +25,7 @@ private String author;
 	/**
 	 * A method that returns the author or authors 
 	 * connected to a specific Book object.
-	 * @return 											// (the author in form of a string) är osäker på om det är såhär det ska skrivas -Aron
+	 * @return the authors full name.
 	 */
 	public String getAuthor() {
 		return author;

@@ -1,7 +1,12 @@
 package gu1;
 
 import java.util.Arrays;
-
+/**
+ * A class that holds the id, author and title of
+ * a given book object. The Book class extends Media.
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
+ *
+ */
 public class Dvd extends Media{
 	private String[] actors;
 	

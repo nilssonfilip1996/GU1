@@ -1,9 +1,9 @@
 package gu1;
 
 /**
- * A class that holds the id, author and title of
- * a given book object. The Book class extends Media.
- * @author ?
+ * A class that holds the id, author, title and year of publication 
+ * of a given book object. The Book class extends Media.
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
  *
  */
 

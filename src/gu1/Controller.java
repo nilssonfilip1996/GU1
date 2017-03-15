@@ -30,9 +30,10 @@ public class Controller {
 		this.mainWindow = new MediaViewer(this);
 	}
 /**
- * 
- * @param userListPath
- * @return
+ * ---- the return information here as well sort of?										FRÅGA!
+ * @param userListPath is a String containing the name of a userlist file.
+ * @return UserDatabase<String, User> - an implementation of a search tree 
+ * populated with the user information found in the document specified by the userListPath.
  */
 	public UserDatabase<String, User> populateUserDatabase(String userListPath) {
 		UserDatabase<String, User> userList = new UserDatabase<String, User>();
@@ -54,7 +55,7 @@ public class Controller {
 /**
  * 
  * @param mediaListPath
- * @return
+ * @return ---- som sagt så är jag lite osäker på denna.
  */
 	public MediaLibrary<String, Media> populateMediaLibrary(String mediaListPath) {
 		MediaLibrary<String, Media> mediaList = new MediaLibrary<String, Media>();

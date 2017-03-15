@@ -19,7 +19,7 @@ public class LogInPanel extends JPanel implements ActionListener {
 	private JButton logInBtn;
 	
 	/**
-	 * Constructor receives an instance of MediaViewer making it accessable.
+	 * Constructor receives an instance of MediaViewer.
 	 * Calls for drawLoginPanel which adds components to the JPanel.
 	 * @param mainFrame , MediaViewer extends JFrame
 	 */

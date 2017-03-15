@@ -7,9 +7,12 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
+ * The class LibraryPanel represents graphical interface a user is faced with
+ * after a successful login a library application. It extends JPanel giving it
+ * attributes of a JPanel.
  * 
- * 
- * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter
+ *         Dezsi
  *
  */
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener, KeyListener {
@@ -33,6 +36,11 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	private JTextField searchText;
 	private Controller controller;
 
+	/**
+	 * Constructor receives an instance of the class Controller.
+	 * Calls for drawLibraryPanel which adds components to the JPanel.
+	 * @param controller
+	 */
 	public LibraryPanel(Controller controller) {
 
 		this.controller = controller;
@@ -113,10 +121,19 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		searchText.addKeyListener(this);
 	}
 
+	/**
+	 * Displays the name of the current user.
+	 * @param name , name to be displayed.
+	 */
 	public void fillUserName(String name) {
 		welcomeLbl.setText("Welcome: " + name);
 	}
 
+	/**
+	 * Method receives an array of Media objects that are available for loan and displays them.
+	 * 
+	 * @param availableMedia , Media array
+	 */
 	public void fillAvailableMediaList(Media[] availableMedia) {
 		DefaultListModel<String> availableMediaListModel = new DefaultListModel<String>();
 		for (int i = 0; i < availableMedia.length; i++) {
@@ -127,6 +144,11 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.availableMedia.setModel(availableMediaListModel);
 	}
 
+	/**
+	 * Method receives an array of Media objects corresponding to the loans of a certain user.
+	 * 
+	 * @param userLoans , Media array
+	 */
 	public void fillUserLoanList(Media[] userLoans) {
 		DefaultListModel<String> userLoanListModel = new DefaultListModel<String>();
 		for (int i = 0; i < userLoans.length; i++) {
@@ -135,10 +157,18 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.userLoans.setModel(userLoanListModel);
 	}
 
+	/**
+	 * Receives the info of a particular media and displays it.
+	 * @param mediaInfo , info of a particular media to display.
+	 */
 	public void showMediaInfo(String mediaInfo) {
 		mediaInfoTxt.setText(mediaInfo);
 	}
 
+	/**
+	 * Called upon when the user selects something in either the available media list or the user loan list.
+	 * Shows info of a certain media title that is selected in one of the lists.
+	 */
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting()) {
 			if (e.getSource() == availableMedia) {
@@ -151,6 +181,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		}
 	}
 
+	/**
+	 * Called upon when the user presses one of the buttons on the GUI.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == makeLoanBtn && !availableMedia.isSelectionEmpty()) {
 			String mediaID = availableMedia.getSelectedValue().substring(0, 6);
@@ -165,10 +198,16 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 			controller.logOut();
 		}
 	}
-
+	/**
+	 * Not used.
+	 */
 	public void keyTyped(KeyEvent e) {
 	}
 
+	/**
+	 * Called upon when the user presses Enter on the keyboard.
+	 * Does the same as when Search Media is pressed i.e searches for a media and prints the result.
+	 */
 	public void keyPressed(KeyEvent e) {
 		if ((e.getKeyCode() == KeyEvent.VK_ENTER)) {
 			String input = searchText.getText();
@@ -176,6 +215,9 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		}
 	}
 
+	/**
+	 * Not used.
+	 */
 	public void keyReleased(KeyEvent e) {
 	}
 }

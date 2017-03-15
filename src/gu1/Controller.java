@@ -16,7 +16,11 @@ public class Controller {
 	private User currentUser;
 	private MediaViewer mainWindow;
 /**
- * This constructor
+ * This constructor takes to strings as its arguments. These strings in
+ * turn correspond to names of text files. The constructor uses these
+ * files to populate the UserDatabase and MediaLibrary. Also, an instance 
+ * of the MediaViewer is created. This enables the controller to draw the
+ * appropriate panels later on during the execution of the code.
  * @param mediaListPath
  * @param userListPath
  */
@@ -25,7 +29,11 @@ public class Controller {
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
 		this.mainWindow = new MediaViewer(this);
 	}
-
+/**
+ * 
+ * @param userListPath
+ * @return
+ */
 	public UserDatabase<String, User> populateUserDatabase(String userListPath) {
 		UserDatabase<String, User> userList = new UserDatabase<String, User>();
 		try {
@@ -43,7 +51,11 @@ public class Controller {
 		}
 		return userList;
 	}
-
+/**
+ * 
+ * @param mediaListPath
+ * @return
+ */
 	public MediaLibrary<String, Media> populateMediaLibrary(String mediaListPath) {
 		MediaLibrary<String, Media> mediaList = new MediaLibrary<String, Media>();
 		try {
@@ -68,7 +80,10 @@ public class Controller {
 		}
 		return mediaList;
 	}
-
+/**
+ * 
+ * @return
+ */
 	public Media[] populateAvailableMediaList() {
 		Iterator<Media> values = mediaLibrary.availableMedia();
 		Media[] mediaList = new Media[mediaLibrary.size()];
@@ -80,7 +95,10 @@ public class Controller {
 		return mediaList;
 
 	}
-
+/**
+ * 
+ * @return
+ */
 	public Media[] populateCurrentUserLoanList() {
 		Iterator<Media> values = currentUser.loans().iterator();
 		Media[] loanList = new Media[currentUser.loans().size()];
@@ -91,7 +109,11 @@ public class Controller {
 		}
 		return loanList;
 	}
-
+/**
+ * 
+ * @param input
+ * @return
+ */
 	public String[] searchTitle(String input) {
 		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
 		Iterator<Media> values = mediaLibrary.availableMedia();
@@ -118,7 +140,11 @@ public class Controller {
 
 		return foundIdlist.toArray(new String[foundIdlist.size()]);
 	}
-
+/**
+ * 
+ * @param userID
+ * @return
+ */
 	public boolean login(String userID) {
 		if (userDatabase.contains(userID)) {
 			currentUser = userDatabase.get(userID);
@@ -128,17 +154,23 @@ public class Controller {
 		JOptionPane.showMessageDialog(null, "User not found");														// GUI?
 		return false;
 	}
-
+// inga kommentarer på de privata metoderna va??					- FRÅGA!
 	private void loginToLibraryPanel() {
 		mainWindow.loginToLibraryPanel(currentUser.getName());
 		mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 	}
-
+/**
+ * 
+ */
 	public void logOut() {
 		currentUser = null;
 		mainWindow.libraryToLoginPanel();
 	}
-
+/**
+ * 
+ * @param mediaID
+ * @return
+ */
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
 			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
@@ -148,7 +180,11 @@ public class Controller {
 
 		return false;
 	}
-
+/**
+ * 
+ * @param mediaID
+ * @return
+ */
 	public boolean returnMedia(String mediaID) {
 		if (currentUser.loans().contains(mediaLibrary.get(mediaID))) {
 			currentUser.returnMedia(mediaLibrary.returnMedia(mediaID));
@@ -157,7 +193,10 @@ public class Controller {
 		}
 		return false;
 	}
-
+/**
+ * 
+ * @param key
+ */
 	public void showMultipleMediaInfo(String[] key) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Search Results: \n\n");
@@ -188,7 +227,9 @@ public class Controller {
 		}
 		mainWindow.updateMediaInfoField(sb.toString());
 	}
-
+/**
+ * 
+ */
 	public void showSingleMediaInfo(String key) {
 		Media theMedia = mediaLibrary.get(key);
 		if (theMedia instanceof Dvd) {
@@ -216,7 +257,10 @@ public class Controller {
 			mainWindow.updateMediaInfoField(sb.toString());
 		}
 	}
-
+/**
+ * 
+ * @param str
+ */
 	public void showFoundMedia(String str) {
 		String[] temp = searchTitle(str);
 		if (temp.length == 0) {

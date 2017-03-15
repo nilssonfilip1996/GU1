@@ -5,13 +5,21 @@ import java.util.*;
 import javax.swing.*;
 
 import quarantine.GUItest;
-
+/**
+ * The Controller class handles the core logic. 
+ * @author ?
+ *
+ */
 public class Controller {
 	private MediaLibrary<String, Media> mediaLibrary;
 	private UserDatabase<String, User> userDatabase;
 	private User currentUser;
 	private MediaViewer mainWindow;
-
+/**
+ * This constructor
+ * @param mediaListPath
+ * @param userListPath
+ */
 	public Controller(String mediaListPath, String userListPath) {
 		this.userDatabase = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);

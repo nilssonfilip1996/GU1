@@ -7,7 +7,7 @@ public class MainLauncher {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				Controller controller = new Controller("Media.txt", "Lantagare.txt");
+				Controller controller = new Controller("files/Media.txt", "files/Lantagare.txt");
 			}
 		});
 	}

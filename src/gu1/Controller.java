@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
-import quarantine.GUItest;
 /**
  * The Controller class handles the core logic. 
  * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
@@ -282,5 +281,4 @@ public class Controller {
 			showMultipleMediaInfo(keyword);
 		}
 	}
-
 }

@@ -11,8 +11,7 @@ import javax.swing.event.*;
  * after a successful login a library application. It extends JPanel giving it
  * attributes of a JPanel.
  * 
- * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter
- *         Dezsi
+ * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
  *
  */
 public class LibraryPanel extends JPanel implements ListSelectionListener, ActionListener, KeyListener {

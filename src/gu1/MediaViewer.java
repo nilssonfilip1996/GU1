@@ -1,7 +1,6 @@
 package gu1;
 
 import java.awt.*;
-
 import javax.swing.*;
 
 /**

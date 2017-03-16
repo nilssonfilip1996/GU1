@@ -64,12 +64,14 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 		this.librarySideLbl = new JLabel("Available Media:");
 		this.librarySideLbl.setBackground(Color.CYAN);
 		this.librarySideLbl.setOpaque(true);
+		this.librarySideLbl.setPreferredSize(new Dimension(320, 40));
 		this.welcomeLbl = new JLabel();
 		this.welcomeLbl.setOpaque(true);
 		this.welcomeLbl.setBackground(Color.PINK);
 		this.userSideLbl = new JLabel("User loans:");
 		this.userSideLbl.setBackground(Color.MAGENTA);
 		this.userSideLbl.setOpaque(true);
+		this.userSideLbl.setPreferredSize(new Dimension(320, 40));
 		this.availableMedia = new JList<String>();
 		this.userLoans = new JList<String>();
 		this.makeLoanBtn = new JButton("Loan");

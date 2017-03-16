@@ -242,7 +242,6 @@ public class Controller {
  * to the main window. There it is later displayed to the user.
  */
 	public void showSingleMediaInfo(String key) {
-		System.out.println(key);
 		Media theMedia = mediaLibrary.get(key);
 		if (theMedia instanceof Dvd) {
 			Dvd dvd = (Dvd) theMedia;

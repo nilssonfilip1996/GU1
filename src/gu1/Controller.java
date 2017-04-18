@@ -10,8 +10,8 @@ import javax.swing.*;
  *
  */
 public class Controller {
-	private MediaLibrary<String, Media> mediaLibrary;
-	private UserDatabase<String, User> userDatabase;
+	private MediaLibrary mediaLibrary;
+	private BinarySearchTree<String, User> userList;
 	private User currentUser;
 	private MediaViewer mainWindow;
 /**
@@ -24,7 +24,7 @@ public class Controller {
  * @param userListPath
  */
 	public Controller(String mediaListPath, String userListPath) {
-		this.userDatabase = populateUserDatabase(userListPath);
+		this.userList = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
 		this.mainWindow = new MediaViewer(this);
 	}
@@ -34,8 +34,8 @@ public class Controller {
  * @return UserDatabase<String, User> an implementation of a search tree 
  * populated with the user information found in the document specified by the userListPath.
  */
-	public UserDatabase<String, User> populateUserDatabase(String userListPath) {
-		UserDatabase<String, User> userList = new UserDatabase<String, User>();
+	public BinarySearchTree<String, User> populateUserDatabase(String userListPath) {
+		BinarySearchTree<String, User> userList = new BinarySearchTree<String, User>();
 		try {
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(userListPath), "UTF-8"));
@@ -56,8 +56,8 @@ public class Controller {
  * @param mediaListPath
  * @return MediaLibrary<String, Media> containing the current media objects
  */
-	public MediaLibrary<String, Media> populateMediaLibrary(String mediaListPath) {
-		MediaLibrary<String, Media> mediaList = new MediaLibrary<String, Media>();
+	public MediaLibrary populateMediaLibrary(String mediaListPath) {
+		MediaLibrary mediaList = new MediaLibrary();
 		try {
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(mediaListPath), "UTF-8"));
@@ -84,13 +84,16 @@ public class Controller {
  * The method populates a Media array with the available media.
  * @return a Media array with the found media.
  */
-	public Media[] populateAvailableMediaList() {
+	public String[] populateAvailableMediaList() {
 		Iterator<Media> values = mediaLibrary.availableMedia();
-		Media[] mediaList = new Media[mediaLibrary.size()];
+		String[] mediaList = new String[mediaLibrary.size()];
 		int index = 0;
-		while (values.hasNext()) {
-			mediaList[index] = values.next();
-			index++;
+		while (values.hasNext()) {	
+			Media temp = values.next();
+			if(!temp.isBorrowed()){
+				mediaList[index] = (temp.getId() + ", " + temp.getTitle());
+				index++;
+			}
 		}
 		return mediaList;
 
@@ -99,12 +102,13 @@ public class Controller {
  * The method populates a Media array with the current loaned media.
  * @return a Media array with the loaned list.
  */
-	public Media[] populateCurrentUserLoanList() {
+	public String[] populateCurrentUserLoanList() {
 		Iterator<Media> values = currentUser.loans().iterator();
-		Media[] loanList = new Media[currentUser.loans().size()];
+		String[] loanList = new String[currentUser.loans().size()];
 		int index = 0;
 		while (values.hasNext()) {
-			loanList[index] = values.next();
+			Media temp = values.next();
+			loanList[index] = (temp.getId() + ", " + temp.getTitle());
 			index++;
 		}
 		return loanList;
@@ -148,8 +152,8 @@ public class Controller {
  * if the login was successful or not.
  */
 	public boolean login(String userID) {
-		if (userDatabase.contains(userID)) {
-			currentUser = userDatabase.get(userID);
+		if (userList.contains(userID)) {
+			currentUser = userList.get(userID);
 			loginToLibraryPanel(); 
 			return true;
 		}
@@ -177,7 +181,8 @@ public class Controller {
  */
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
-			currentUser.borrowMedia(mediaLibrary.borrowMedia(mediaID));
+			currentUser.borrowMedia(mediaLibrary.get(mediaID));
+			mediaLibrary.get(mediaID).setBorrowed(true);
 			mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 			return true;
 		}
@@ -193,7 +198,8 @@ public class Controller {
  */
 	public boolean returnMedia(String mediaID) {
 		if (currentUser.loans().contains(mediaLibrary.get(mediaID))) {
-			currentUser.returnMedia(mediaLibrary.returnMedia(mediaID));
+			currentUser.returnMedia(mediaLibrary.get(mediaID));
+			mediaLibrary.get(mediaID).setBorrowed(false);
 			mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 			return true;
 		}

@@ -10,6 +10,7 @@ public abstract class Media {
 	private String id;
 	private String year;
 	private String title;
+	private boolean borrowed = false;
 
 	/**
 	 * Constructor
@@ -21,6 +22,22 @@ public abstract class Media {
 		this.id = id;
 		this.year = year;
 		this.title = titel;
+	}
+
+	/**
+	 * Returns borrowed status
+	 * @return borrowed boolean
+	 */
+	public boolean isBorrowed() {
+		return borrowed;
+	}
+
+	/**
+	 * Sets borrowed status
+	 * @param borrowed boolean
+	 */
+	public void setBorrowed(boolean borrowed) {
+		this.borrowed = borrowed;
 	}
 
 	/**

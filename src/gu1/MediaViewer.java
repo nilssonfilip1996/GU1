@@ -76,7 +76,7 @@ public class MediaViewer extends JFrame {
 	 * @param userLoanList
 	 *            , media-array to show the logged in users loans.
 	 */
-	public void updateMediaLists(Media[] availableMediaList, Media[] userLoanList) {
+	public void updateMediaLists(String[] availableMediaList, String[] userLoanList) {
 		libraryPanel.fillAvailableMediaList(availableMediaList);
 		libraryPanel.fillUserLoanList(userLoanList);
 	}

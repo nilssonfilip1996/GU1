@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
 *
 */
-public class UserDatabase<K, V> implements SearchTree<K, V> {
+public class BinarySearchTree<K, V> implements SearchTree<K, V> {
 	private Comparator<K> comparator;
 	private UserNode<K, V> tree;
 	private int size;
@@ -17,14 +17,14 @@ public class UserDatabase<K, V> implements SearchTree<K, V> {
 	    *
 	    * instanstiates compparator
 	    */
-	public UserDatabase() {
+	public BinarySearchTree() {
 		comparator = new Comp();
 	}
 	/**
 	    * Constructor som compares a user tree.
 	    * @param comp compares  users tree
 	    */
-	public UserDatabase(Comparator<K> comp) {
+	public BinarySearchTree(Comparator<K> comp) {
 		comparator = comp;
 	}
 	/**

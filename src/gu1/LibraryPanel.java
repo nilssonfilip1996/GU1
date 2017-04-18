@@ -135,11 +135,11 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	 * 
 	 * @param availableMedia , Media array
 	 */
-	public void fillAvailableMediaList(Media[] availableMedia) {
+	public void fillAvailableMediaList(String[] availableMedia) {
 		DefaultListModel<String> availableMediaListModel = new DefaultListModel<String>();
 		for (int i = 0; i < availableMedia.length; i++) {
 			if (availableMedia[i] != null) {
-				availableMediaListModel.addElement(availableMedia[i].getId() + ", " + availableMedia[i].getTitle());
+				availableMediaListModel.addElement(availableMedia[i]);
 			}
 		}
 		this.availableMedia.setModel(availableMediaListModel);
@@ -150,10 +150,10 @@ public class LibraryPanel extends JPanel implements ListSelectionListener, Actio
 	 * 
 	 * @param userLoans , Media array
 	 */
-	public void fillUserLoanList(Media[] userLoans) {
+	public void fillUserLoanList(String[] userLoans) {
 		DefaultListModel<String> userLoanListModel = new DefaultListModel<String>();
 		for (int i = 0; i < userLoans.length; i++) {
-			userLoanListModel.addElement(userLoans[i].getId() + ", " + userLoans[i].getTitle());
+			userLoanListModel.addElement(userLoans[i]);
 		}
 		this.userLoans.setModel(userLoanListModel);
 	}

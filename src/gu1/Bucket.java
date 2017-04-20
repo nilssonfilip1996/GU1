@@ -1,4 +1,5 @@
 package gu1;
+
 /**
  * A Media object is kept in a Bucket object and labeled as
  * either EMPTY, OCCUPIED or REMOVED. Each object

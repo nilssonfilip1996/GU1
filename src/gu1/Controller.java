@@ -14,26 +14,28 @@ public class Controller {
 	private BinarySearchTree<String, User> userList;
 	private User currentUser;
 	private MediaViewer mainWindow;
-/**
- * This constructor takes two strings as its arguments. These strings in
- * turn correspond to names of text files. The constructor uses these
- * files to populate the UserDatabase and MediaLibrary. Also, an instance 
- * of the MediaViewer is created. This enables the controller to draw the
- * appropriate panels later on during the execution of the code.
- * @param mediaListPath
- * @param userListPath
- */
+	
+	/**
+	 * This constructor takes two strings as its arguments. These strings in
+	 * turn correspond to names of text files. The constructor uses these
+	 * files to populate the UserDatabase and MediaLibrary. Also, an instance 
+	 * of the MediaViewer is created. This enables the controller to draw the
+	 * appropriate panels later on during the execution of the code.
+	 * @param mediaListPath
+	 * @param userListPath
+	 */
 	public Controller(String mediaListPath, String userListPath) {
 		this.userList = populateUserDatabase(userListPath);
 		this.mediaLibrary = populateMediaLibrary(mediaListPath);
 		this.mainWindow = new MediaViewer(this);
 	}
-/**
- * The method populates an instance of BinarySearchTree with the current users.							
- * @param userListPath is a String containing the name of a userList file.
- * @return BinarySearchTree<String, User> an implementation of a search tree 
- * populated with the user information found in the document specified by the userListPath.
- */
+	
+	/**
+	 * The method populates an instance of BinarySearchTree with the current users.							
+	 * @param userListPath is a String containing the name of a userList file.
+	 * @return BinarySearchTree<String, User> an implementation of a search tree 
+	 * populated with the user information found in the document specified by the userListPath.
+	 */
 	public BinarySearchTree<String, User> populateUserDatabase(String userListPath) {
 		BinarySearchTree<String, User> userList = new BinarySearchTree<String, User>();
 		try {
@@ -51,11 +53,12 @@ public class Controller {
 		}
 		return userList;
 	}
-/**
- * The method populates an instance of MediaLibrary with the current media objects.	
- * @param mediaListPath
- * @return MediaLibrary containing the current media objects
- */
+	
+	/**
+	 * The method populates an instance of MediaLibrary with the current media objects.	
+	 * @param mediaListPath
+	 * @return MediaLibrary containing the current media objects
+	 */
 	public MediaLibrary populateMediaLibrary(String mediaListPath) {
 		MediaLibrary mediaList = new MediaLibrary();
 		try {
@@ -80,10 +83,11 @@ public class Controller {
 		}
 		return mediaList;
 	}
-/**
- * The method populates a Media array with the available media.
- * @return a Media array with the found media.
- */
+	
+	/**
+	 * The method populates a Media array with the available media.
+	 * @return a Media array with the found media.
+	 */
 	public String[] populateAvailableMediaList() {
 		Iterator<Media> values = mediaLibrary.availableMedia();
 		String[] mediaList = new String[mediaLibrary.size()];
@@ -96,12 +100,12 @@ public class Controller {
 			}
 		}
 		return mediaList;
-
 	}
-/**
- * The method populates a Media array with the current loaned media.
- * @return a Media array with the loaned list.
- */
+	
+	/**
+	 * The method populates a Media array with the current loaned media.
+	 * @return a Media array with the loaned list.
+	 */
 	public String[] populateCurrentUserLoanList() {
 		Iterator<Media> values = currentUser.loans().iterator();
 		String[] loanList = new String[currentUser.loans().size()];
@@ -113,18 +117,18 @@ public class Controller {
 		}
 		return loanList;
 	}
-/**
- * This method takes a string as its input and searches the available media objects
- * to find a match. If a match is found
- * @param input - the piece of information used to search through the media objects.
- * @return A string array containing the information about a certain type of media
- */
+	
+	/**
+	 * This method takes a string as its input and searches the available media objects
+	 * to find a match. If a match is found
+	 * @param input - the piece of information used to search through the media objects.
+	 * @return A string array containing the information about a certain type of media
+	 */
 	public String[] searchTitle(String input) {
 		String[] inputs = input.toLowerCase().split("[^a-öA-Ö0-9]+");
 		Iterator<Media> values = mediaLibrary.availableMedia();
 		ArrayList<String> foundIdlist = new ArrayList<String>();
 		int count = 0;
-
 		while (values.hasNext()) {
 			Media media = values.next();
 			String ref = media.getTitle();
@@ -142,15 +146,15 @@ public class Controller {
 			}
 			count = 0;
 		}
-
 		return foundIdlist.toArray(new String[foundIdlist.size()]);
 	}
-/**
- * This method handles the login.
- * @param userID is a string containing an userID
- * @return either true or false depending on 
- * if the login was successful or not.
- */
+	
+	/**
+	 * This method handles the login.
+	 * @param userID is a string containing an userID
+	 * @return either true or false depending on 
+	 * if the login was successful or not.
+	 */
 	public boolean login(String userID) {
 		if (userList.contains(userID)) {
 			currentUser = userList.get(userID);
@@ -165,20 +169,22 @@ public class Controller {
 		mainWindow.loginToLibraryPanel(currentUser.getName());
 		mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 	}
-/**
- * The logOut method, as the name implies, 
- * handles loging out from the system.
- */
+	
+	/**
+	 * The logOut method, as the name implies, 
+	 * handles loging out from the system.
+	 */
 	public void logOut() {
 		currentUser = null;
 		mainWindow.libraryToLoginPanel();
 	}
-/**
- * This method borrows a media object if 
- * the given mediaID exists in the current mediaLibrary 
- * @param mediaID is a String containing an ID
- * @return a boolean depending on the the borrow was successful or not.
- */
+	
+	/**
+	 * This method borrows a media object if 
+	 * the given mediaID exists in the current mediaLibrary 
+	 * @param mediaID is a String containing an ID
+	 * @return a boolean depending on the the borrow was successful or not.
+	 */
 	public boolean borrowMedia(String mediaID) {
 		if (mediaLibrary.contains(mediaID)) {
 			currentUser.borrowMedia(mediaLibrary.get(mediaID));
@@ -186,16 +192,16 @@ public class Controller {
 			mainWindow.updateMediaLists(populateAvailableMediaList(), populateCurrentUserLoanList());
 			return true;
 		}
-
 		return false;
 	}
-/**
- * This method returns a media object if 
- * the given mediaID exists in the current users list
- * of loans. 
- * @param mediaID
- * @return a boolean depending on the the return was successful or not.
- */
+	
+	/**
+	 * This method returns a media object if 
+	 * the given mediaID exists in the current users list
+	 * of loans. 
+	 * @param mediaID
+	 * @return a boolean depending on the the return was successful or not.
+	 */
 	public boolean returnMedia(String mediaID) {
 		if (currentUser.loans().contains(mediaLibrary.get(mediaID))) {
 			currentUser.returnMedia(mediaLibrary.get(mediaID));
@@ -205,12 +211,13 @@ public class Controller {
 		}
 		return false;
 	}
-/**
- * This method shows the media objects found during 
- * a search. 
- * @param key is a String array containing the IDs 
- * of the media objects to be displayed in the main window.
- */
+	
+	/**
+	 * This method shows the media objects found during 
+	 * a search. 
+	 * @param key is a String array containing the IDs 
+	 * of the media objects to be displayed in the main window.
+	 */
 	public void showMultipleMediaInfo(String[] key) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Search Results: \n\n");
@@ -229,8 +236,6 @@ public class Controller {
 						sb.append(", ");
 					}
 				}
-		
-
 			} else if (theMedia instanceof Book) {
 				Book book = (Book) theMedia;
 				sb.append("Title: " + book.getTitle() + "\n");
@@ -242,10 +247,11 @@ public class Controller {
 		}
 		mainWindow.updateMediaInfoField(sb.toString());
 	}
-/**
- * This method sends the appropriate information connected to a certain media object
- * to the main window. There it is later displayed to the user.
- */
+	
+	/**
+	 * This method sends the appropriate information connected to a certain media object
+	 * to the main window. There it is later displayed to the user.
+	 */
 	public void showSingleMediaInfo(String key) {
 		Media theMedia = mediaLibrary.get(key);
 		if (theMedia instanceof Dvd) {
@@ -273,12 +279,13 @@ public class Controller {
 			mainWindow.updateMediaInfoField(sb.toString());
 		}
 	}
-/**
- * This method searches the unloaned media objects and
- * either returns the information connected to an object
- * or a message that the keyword has no result.
- * @param str represents a keyword that is used for searching the library.
- */
+	
+	/**
+	 * This method searches the unloaned media objects and
+	 * either returns the information connected to an object
+	 * or a message that the keyword has no result.
+	 * @param str represents a keyword that is used for searching the library.
+	 */
 	public void showFoundMedia(String str) {
 		String[] keyword = searchTitle(str);
 		if (keyword.length == 0) {

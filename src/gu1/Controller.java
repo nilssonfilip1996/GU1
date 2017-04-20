@@ -29,9 +29,9 @@ public class Controller {
 		this.mainWindow = new MediaViewer(this);
 	}
 /**
- * The method populates an instance of UserDatabase with the current users.							
+ * The method populates an instance of BinarySearchTree with the current users.							
  * @param userListPath is a String containing the name of a userList file.
- * @return UserDatabase<String, User> an implementation of a search tree 
+ * @return BinarySearchTree<String, User> an implementation of a search tree 
  * populated with the user information found in the document specified by the userListPath.
  */
 	public BinarySearchTree<String, User> populateUserDatabase(String userListPath) {
@@ -54,7 +54,7 @@ public class Controller {
 /**
  * The method populates an instance of MediaLibrary with the current media objects.	
  * @param mediaListPath
- * @return MediaLibrary<String, Media> containing the current media objects
+ * @return MediaLibrary containing the current media objects
  */
 	public MediaLibrary populateMediaLibrary(String mediaListPath) {
 		MediaLibrary mediaList = new MediaLibrary();
@@ -277,7 +277,7 @@ public class Controller {
  * This method searches the unloaned media objects and
  * either returns the information connected to an object
  * or a message that the keyword has no result.
- * @param str represents a keyword that is used for searching the database.
+ * @param str represents a keyword that is used for searching the library.
  */
 	public void showFoundMedia(String str) {
 		String[] keyword = searchTitle(str);

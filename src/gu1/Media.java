@@ -2,7 +2,7 @@ package gu1;
 
 /**
  * Media is an abstract superclass for media type classes such as Book and Dvd.
- * Media stores id-number, year of publication and title for subclasses.
+ * Media stores id-number, year of publication, title for subclasses and a boolean for if an object is borrowed.
  * 
  * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
  */

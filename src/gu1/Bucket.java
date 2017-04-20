@@ -1,9 +1,9 @@
 package gu1;
 /**
- * Every Media object is kept on a shelf and labeled as
- * either EMPTY, OCCUPIED, REMOVED or BORROWERED. Each object
+ * A Media object is kept in a Bucket object and labeled as
+ * either EMPTY, OCCUPIED or REMOVED. Each object
  * also holds a unique key which is its ID and a value which 
- * represents the entirety of the information infide the Media object.
+ * represents the entirety of the information inside the Media object.
  * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
  *
  * @param <K>

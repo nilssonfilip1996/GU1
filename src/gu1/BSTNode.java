@@ -1,19 +1,19 @@
 package gu1;
 
 /**
- * UserNode is a container class used with classes User and UserDatabase.
- * User objects are mapped with key-value pair parameters within a UserDatabase tree map structure. 
+ * UserNode is a container class used with classes User and BinarySearchTree.
+ * User objects are mapped with key-value pair parameters within a BinarySearchTree map structure. 
  * 
  * @author Jesper Anderberg, Filip Nilsson, Aron Polner, Ali Hassan, Szilveszter Dezsi
  *
  * @param <K> specified key data reference type
  * @param <V> specified key value reference type
  */
-public class UserNode<K,V> {
+public class BSTNode<K,V> {
     K key;
     V value;
-    UserNode<K,V> left;
-    UserNode<K,V> right;
+    BSTNode<K,V> left;
+    BSTNode<K,V> right;
     
     /**
      * Constructs new UserNode.
@@ -22,7 +22,7 @@ public class UserNode<K,V> {
      * @param left - left child
      * @param right - right child
      */
-    public UserNode( K key, V value, UserNode<K,V> left, UserNode<K,V> right ) {
+    public BSTNode( K key, V value, BSTNode<K,V> left, BSTNode<K,V> right ) {
         this.key = key;
         this.value = value;
         this.left = left;
